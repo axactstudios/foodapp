@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
+import 'package:foodapp/Screens/IntroScreens.dart';
 
 class FirstScreen extends StatefulWidget {
   @override
@@ -121,21 +122,31 @@ class _FirstScreenState extends State<FirstScreen> {
                           SizedBox(
                             height: pHeight * 0.03,
                           ),
-                          Container(
-                            child: Column(
-                              children: <Widget>[
-                                Image.asset(
-                                  'assets/images/chef@3x.png',
-                                  height: pHeight * 0.25,
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => IntroScreens(),
                                 ),
-                                Text(
-                                  'CHEF',
-                                  style: TextStyle(
-                                      fontFamily: 'Calibre',
-                                      fontSize: pHeight * 0.025,
-                                      color: kPrimaryColor),
-                                ),
-                              ],
+                              );
+                            },
+                            child: Container(
+                              child: Column(
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/images/chef@3x.png',
+                                    height: pHeight * 0.25,
+                                  ),
+                                  Text(
+                                    'CHEF',
+                                    style: TextStyle(
+                                        fontFamily: 'Calibre',
+                                        fontSize: pHeight * 0.025,
+                                        color: kPrimaryColor),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],
