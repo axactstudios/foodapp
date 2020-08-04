@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
+import 'package:foodapp/Screens/BasicDetailsScreen.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
@@ -73,7 +74,14 @@ class _OTPScreenState extends State<OTPScreen> {
                 height: pHeight * 0.05,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BasicDetails(),
+                    ),
+                  );
+                },
                 child: Container(
                   width: pWidth * 0.7,
                   height: pHeight * 0.05,
