@@ -18,7 +18,7 @@ dependencies:
   flutter_svg: ^0.17.4
   animations: ^1.1.0
   persistent_bottom_nav_bar :
-
+  http:
 dev_dependencies:
   flutter_test:
     sdk: flutter
