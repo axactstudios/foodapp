@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
+import 'package:foodapp/Screens/navbar.dart';
 
 class AddBankDetails extends StatefulWidget {
   @override
@@ -184,7 +185,14 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                   height: pHeight * 0.01,
                 ),
                 InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Navbar(),
+                      ),
+                    );
+                  },
                   child: Container(
                     width: pWidth * 0.6,
                     height: pHeight * 0.05,
