@@ -17,6 +17,7 @@ dependencies:
   otp_text_field: ^1.0.1
   flutter_svg: ^0.17.4
   animations: ^1.1.0
+  persistent_bottom_nav_bar :
 
 dev_dependencies:
   flutter_test:
@@ -31,3 +32,8 @@ flutter:
      - family: Calibre
        fonts:
          - asset: assets/fonts/Calibre-Medium.ttf
+         - asset: assets/fonts/Calibre.ttf
+
+     - family: MyFlutterApp
+       fonts:
+         - asset: assets/icons/MyFlutterApp.ttf
