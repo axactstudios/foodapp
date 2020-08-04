@@ -94,7 +94,8 @@ class _FirstScreenState extends State<FirstScreen> {
                               SizedBox(
                                 width: pWidth * 0.25,
                                 child: Divider(
-                                  color: Colors.black.withOpacity(0.45),
+                                  thickness: 2,
+                                  color: Colors.deepOrange.withOpacity(0.45),
                                 ),
                               ),
                               SizedBox(
@@ -104,8 +105,9 @@ class _FirstScreenState extends State<FirstScreen> {
                                 'OR',
                                 style: TextStyle(
                                   fontFamily: 'Calibre',
+                                  fontWeight: FontWeight.bold,
                                   fontSize: pHeight * 0.02,
-                                  color: Colors.black.withOpacity(0.5),
+                                  color: Colors.deepOrange.withOpacity(0.5),
                                 ),
                               ),
                               SizedBox(
@@ -114,7 +116,8 @@ class _FirstScreenState extends State<FirstScreen> {
                               SizedBox(
                                 width: pWidth * 0.25,
                                 child: Divider(
-                                  color: Colors.black.withOpacity(0.45),
+                                  thickness: 2,
+                                  color: Colors.deepOrange.withOpacity(0.45),
                                 ),
                               ),
                             ],
