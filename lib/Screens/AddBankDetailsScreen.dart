@@ -3,8 +3,8 @@ import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/navbar.dart';
 
 class AddBankDetails extends StatefulWidget {
-  String profilephotourl,aadharurl,videourl;
-  AddBankDetails(this.profilephotourl,this.aadharurl,this.videourl);
+  String profilephotourl, aadharurl, videourl;
+  AddBankDetails(this.profilephotourl, this.aadharurl, this.videourl);
   @override
   _AddBankDetailsState createState() => _AddBankDetailsState();
 }
@@ -27,6 +27,8 @@ class _AddBankDetailsState extends State<AddBankDetails> {
             child: Image.asset(
               'assets/images/bg@3x.png',
               height: pHeight * 0.15,
+              width: pWidth,
+              fit: BoxFit.fill,
             ),
           ),
           SafeArea(

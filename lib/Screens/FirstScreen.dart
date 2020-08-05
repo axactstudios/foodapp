@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/IntroScreens.dart';
 
+import '../Classes/Constants.dart';
+
 class FirstScreen extends StatefulWidget {
   @override
   _FirstScreenState createState() => _FirstScreenState();
@@ -27,7 +29,9 @@ class _FirstScreenState extends State<FirstScreen> {
                 left: 0,
                 child: Image.asset(
                   'assets/images/main_top.png',
+                  fit: BoxFit.fill,
                   height: pHeight * 0.35,
+                  width: pWidth,
                 ),
               ),
               Column(
@@ -146,7 +150,7 @@ class _FirstScreenState extends State<FirstScreen> {
                                     style: TextStyle(
                                         fontFamily: 'Calibre',
                                         fontSize: pHeight * 0.025,
-                                        color: kPrimaryColor),
+                                        color: kButtonColor),
                                   ),
                                 ],
                               ),
