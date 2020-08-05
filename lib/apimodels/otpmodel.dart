@@ -12,10 +12,10 @@ class OtpModel {
   String message;
 
   factory OtpModel.fromJson(Map<String, dynamic> json) => OtpModel(
-    message: json["message"],
-  );
+        message: json["message"] as String,
+      );
 
   Map<String, dynamic> toJson() => {
-    "message": message,
-  };
+        "message": message,
+      };
 }

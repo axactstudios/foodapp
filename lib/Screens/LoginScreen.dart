@@ -1,29 +1,45 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/OTPScreen.dart';
 import 'package:foodapp/apimodels/otpmodel.dart';
-import'package:http/http.dart' as http;
-
+import 'package:http/http.dart' as http;
 
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
-Future<OtpModel> sendOtp(String number) async {
-  final String apiUrl = "https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/send_otp";
-  final response= await  http.post(apiUrl, body: {
-    "phoneNumber":number
-  }).catchError((e){
-          print(e);});
- if(response.statusCode!=null){
-   final String responseString = response.body;
-   return otpModelFromJson(responseString);
- }
- else{
-   return null;
+
+Future<String> sendOtp(String number) async {
+  HttpClient httpClient = new HttpClient();
+
+  final String apiUrl =
+      "https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/send_otp";
+//  final  response =
+//      await http.post(apiUrl, body: {"phoneNumber": number}).catchError((e) {
+//    print(e);
+//  });
+//  print(response.body.toString());
+//  if (response.statusCode != null) {
+//    final String responseString = response.body;
+//    return otpModelFromJson(responseString);
+//  } else {
+//    return null;
+//  }
+  Map map = {"phoneNumber": '+91$number'};
+  HttpClientRequest request = await httpClient.postUrl(Uri.parse(apiUrl));
+  request.headers.set('content-type', 'application/json');
+  request.add(utf8.encode(json.encode(map)));
+  HttpClientResponse response = await request.close();
+  String reply = await response.transform(utf8.decoder).join();
+  httpClient.close();
+  print(reply);
+  return reply;
 }
-   }
+
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController phoneController = new TextEditingController(text: '');
 
@@ -125,16 +141,17 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: pHeight * 0.04,
                   ),
                   InkWell(
-                    onTap: () async{
-                      final String number=phoneController.text;
-                      final OtpModel user = await sendOtp(number);
+                    onTap: () async {
+                      final String number = phoneController.text;
+//                      final OtpModel user = await sendOtp(number);
+                      await sendOtp(number);
                       setState(() {
-                        _user = user;
+//                        _user = user;
                       });
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => OTPScreen(),
+                          builder: (context) => OTPScreen('+91$number'),
                         ),
                       );
                     },
@@ -155,12 +172,11 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-
                   ),
                   SizedBox(
                     height: pHeight * 0.05,
                   ),
-                  _user==null?Container():Text(_user.message),
+                  _user == null ? Container() : Text(_user.message),
                   Text(
                     'Continue with:',
                     textAlign: TextAlign.center,
@@ -191,7 +207,6 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: pHeight * 0.34,
                   ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -222,5 +237,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
 }

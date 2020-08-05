@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
@@ -6,9 +8,13 @@ import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
 class OTPScreen extends StatefulWidget {
+  String phoneNumber;
+  OTPScreen(this.phoneNumber);
   @override
   _OTPScreenState createState() => _OTPScreenState();
 }
+
+TextEditingController te = new TextEditingController();
 
 class _OTPScreenState extends State<OTPScreen> {
   @override
@@ -78,7 +84,9 @@ class _OTPScreenState extends State<OTPScreen> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => BasicDetails(),
+                      builder: (context) => BasicDetails(
+                        widget.phoneNumber,
+                      ),
                     ),
                   );
                 },

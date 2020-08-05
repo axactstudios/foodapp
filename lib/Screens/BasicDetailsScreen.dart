@@ -4,6 +4,8 @@ import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/AddAddressScreen.dart';
 
 class BasicDetails extends StatefulWidget {
+  String phoneNumber, otp;
+  BasicDetails(this.phoneNumber, this.otp);
   @override
   _BasicDetailsState createState() => _BasicDetailsState();
 }
