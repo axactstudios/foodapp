@@ -7,45 +7,45 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-Future<Album> createAlbum(String title) async {
-  final http.Response response = await http.post(
-    'https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/registerProvider',
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(<String, String>{
-      'title': title,
-    }),
-  );
-
-  if (response.statusCode == 201) {
-    return Album.fromJson(json.decode(response.body));
-  } else {
-    throw Exception('Failed to create album.');
-  }
-}
-
-class Album {
-  final int pin;
-  final String state;
-  final String address;
-  final String country;
-
-  Album({this.pin, this.country, this.state, this.address});
-
-  factory Album.fromJson(Map<String, dynamic> json) {
-    return Album(
-      pin: json['pin'],
-      state: json['state'],
-      address: json['address'],
-      country: json['country'],
-    );
-  }
-}
+//Future<Album> createAlbum(String title) async {
+//  final http.Response response = await http.post(
+//    'https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/registerProvider',
+//    headers: <String, String>{
+//      'Content-Type': 'application/json; charset=UTF-8',
+//    },
+//    body: jsonEncode(<String, String>{
+//      'title': title,
+//    }),
+//  );
+//
+//  if (response.statusCode == 201) {
+//    return Album.fromJson(json.decode(response.body));
+//  } else {
+//    throw Exception('Failed to create album.');
+//  }
+//}
+//
+//class Album {
+//  final int pin;
+//  final String state;
+//  final String address;
+//  final String country;
+//
+//  Album({this.pin, this.country, this.state, this.address});
+//
+//  factory Album.fromJson(Map<String, dynamic> json) {
+//    return Album(
+//      pin: json['pin'],
+//      state: json['state'],
+//      address: json['address'],
+//      country: json['country'],
+//    );
+//  }
+//}
 
 class AddAddress extends StatefulWidget {
-  String name, email, phonenumber;
-  AddAddress(this.name, this.email, this.phonenumber);
+  String name, email, phonenumber,otp;
+  AddAddress(this.name, this.email, this.phonenumber,this.otp);
   @override
   _AddAddressState createState() => _AddAddressState();
 }
@@ -55,7 +55,7 @@ class _AddAddressState extends State<AddAddress> {
   TextEditingController countryController = new TextEditingController(text: '');
   TextEditingController stateController = new TextEditingController(text: '');
   TextEditingController pinController = new TextEditingController(text: '');
-  Future<Album> _futureAlbum;
+//  Future<Album> _futureAlbum;
 
   @override
   Widget build(BuildContext context) {
@@ -274,10 +274,10 @@ class _AddAddressState extends State<AddAddress> {
                 ),
                 InkWell(
                   onTap: () {
-                    _futureAlbum = createAlbum(addressController.text);
-                    _futureAlbum = createAlbum(pinController.text);
-                    _futureAlbum = createAlbum(stateController.text);
-                    _futureAlbum = createAlbum(countryController.text);
+//                    _futureAlbum = createAlbum(addressController.text);
+//                    _futureAlbum = createAlbum(pinController.text);
+//                    _futureAlbum = createAlbum(stateController.text);
+//                    _futureAlbum = createAlbum(countryController.text);
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
@@ -285,7 +285,7 @@ class _AddAddressState extends State<AddAddress> {
                             addressController.text,
                             pinController.text,
                             stateController.text,
-                            countryController.text),
+                            countryController.text,widget.phonenumber,widget.otp,widget.email,widget.name),
                       ),
                     );
                   },

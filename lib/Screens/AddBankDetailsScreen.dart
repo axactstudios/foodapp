@@ -1,12 +1,45 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/navbar.dart';
 
 class AddBankDetails extends StatefulWidget {
-  String profilephotourl, aadharurl, videourl;
-  AddBankDetails(this.profilephotourl, this.aadharurl, this.videourl);
+  String profilephotourl, aadharurl, videourl ,address, pin, state, country,phonenumber,otp,email,name;
+  AddBankDetails(this.profilephotourl, this.aadharurl, this.videourl,this.address,this.pin,this.state,this.country,this.phonenumber,this.otp,this.email,this.name);
   @override
   _AddBankDetailsState createState() => _AddBankDetailsState();
+}
+Future<String>sendDetails(String bankname,String accountNumber, String ifsccode,String profilephotourl, String aadharurl, String videourl ,String address, String pin, String  state,String country,String phonenumber,String otp,String email)async{
+  HttpClient httpClient = new HttpClient();
+  final String apiUrl="https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/registerProvider";
+  Map map = {"phoneNumber": phonenumber,
+    "otpValue":otp,
+    "appId":"food",
+    "requestType":"verify",
+    "type" : "provider",
+    "email" : email,
+    "address" : address,
+    "country" : country,
+    "state"  : state,
+    "pincode" : pin,
+    "documentType"  :" voter",
+    "documentPhoto" : aadharurl,
+    "userProfilePhoto" : profilephotourl,
+    "kitchenVideo" : videourl,
+    "bankname": bankname,
+    "accountNumber" : accountNumber,
+    "ifsc_code" : ifsccode
+  };
+  HttpClientRequest request = await httpClient.postUrl(Uri.parse(apiUrl));
+  request.headers.set('content-type', 'application/json');
+  request.add(utf8.encode(json.encode(map)));
+  HttpClientResponse response = await request.close();
+  String reply = await response.transform(utf8.decoder).join();
+  httpClient.close();
+  print(reply);
+  return reply;
 }
 
 class _AddBankDetailsState extends State<AddBankDetails> {
@@ -189,7 +222,21 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                   height: pHeight * 0.01,
                 ),
                 InkWell(
-                  onTap: () {
+                  onTap: () async{
+                   final String otp=widget.otp;
+                   final String phonenumber=widget.phonenumber;
+                   final String email=widget.email;
+                   final String address=widget.address;
+                   final String country=widget.country;
+                   final String state=widget.state;
+                   final String pin=widget.pin;
+                   final String profilephotourl=widget.profilephotourl;
+                   final String aadharurl=widget.aadharurl;
+                   final String videourl=widget.videourl;
+                   final String bankname=bankController.text;
+                   final String accountNumber=accountController.text;
+                   final String ifsccode=ifscController.text;
+                   await sendDetails(bankname, accountNumber, ifsccode, profilephotourl, aadharurl, videourl, address, pin, state, country, phonenumber, otp, email);
                     Navigator.push(
                       context,
                       MaterialPageRoute(

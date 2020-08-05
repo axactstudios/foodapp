@@ -4,8 +4,8 @@ import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/AddBankDetailsScreen.dart';
 
 class AddDocuments extends StatefulWidget {
-  String address, pin, state, country;
-  AddDocuments(this.address, this.pin, this.state, this.country);
+  String address, pin, state, country,phonenumber,otp,email,name;
+  AddDocuments(this.address, this.pin, this.state, this.country,this.phonenumber,this.otp,this.email,this.name);
   @override
   _AddDocumentsState createState() => _AddDocumentsState();
 }
@@ -296,7 +296,7 @@ class _AddDocumentsState extends State<AddDocuments> {
                       context,
                       CupertinoPageRoute(
                         builder: (context) =>
-                            AddBankDetails('abcd', 'efgh', 'ijkl'),
+                            AddBankDetails('abcd', 'efgh', 'ijkl',widget.address,widget.pin,widget.state,widget.country,widget.phonenumber,widget.otp,widget.email,widget.name),
                       ),
                     );
                   },

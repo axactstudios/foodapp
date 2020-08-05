@@ -15,7 +15,6 @@ class LoginScreen extends StatefulWidget {
 
 Future<String> sendOtp(String number) async {
   HttpClient httpClient = new HttpClient();
-
   final String apiUrl =
       "https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/send_otp";
 //  final  response =
