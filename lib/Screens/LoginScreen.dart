@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => OTPScreen('+91$number'),
+                          builder: (context) => OTPScreen('+91$number','login'),
                         ),
                       );
                     },
@@ -219,12 +219,24 @@ class _LoginScreenState extends State<LoginScreen> {
                       SizedBox(
                         width: pWidth * 0.02,
                       ),
-                      Text(
-                        'REGISTER',
-                        style: TextStyle(
-                            fontFamily: 'Calibre',
-                            color: kButtonColor,
-                            fontSize: pHeight * 0.022),
+                      InkWell(
+                        onTap:()async {
+                          final String number=phoneController.text;
+                          await sendOtp(number);
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                              builder: (context) => OTPScreen('+91$number','register'),
+                          ),
+                          );
+                        },
+                        child: Text(
+                          'REGISTER',
+                          style: TextStyle(
+                              fontFamily: 'Calibre',
+                              color: kButtonColor,
+                              fontSize: pHeight * 0.022),
+                        ),
                       ),
                     ],
                   ),
