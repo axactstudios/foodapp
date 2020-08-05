@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../Classes/Constants.dart';
+import '../Classes/Constants.dart';
 
 class Additem extends StatefulWidget {
   @override
@@ -49,6 +50,8 @@ class _AdditemState extends State<Additem> {
   String dropdownValue4 = 'gm';
   bool but1 = false;
   bool but2 = false;
+  int start1 = 0;
+  int start2 = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -225,37 +228,49 @@ class _AdditemState extends State<Additem> {
                         child: Container(
                           width: 74,
                           height: 24,
-                          child: DropdownButtonFormField(
-                            value: dropdownValue2,
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: khomebordercolor3)),
-                            ),
-                            items: Local.map((String value) {
-                              return new DropdownMenuItem<String>(
-                                value: value,
-                                child: new Text(
-                                  value,
-                                  style: TextStyle(
-                                    fontFamily: 'Calibre',
-                                    fontSize: 16,
-                                    color: khometextcolor3,
-                                  ),
+                          child: Row(
+                            children: <Widget>[
+                              Text(
+                                '$start2',
+                                style: TextStyle(
+                                  fontFamily: 'Calibre',
+                                  fontSize: 16,
+                                  color: khometextcolor3,
                                 ),
-                              );
-                            }).toList(),
-                            onChanged: (String newValue) {
-                              setState(() {
-                                dropdownValue2 = newValue;
-                              });
-                            },
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please Select Item';
-                              }
-                              return null;
-                            },
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.arrow_drop_up,
+                                      color: khometextcolor3,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        if (start2 > 0) {
+                                          start2++;
+                                        }
+                                      });
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.arrow_drop_up,
+                                      color: khometextcolor3,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        if (start2 > 0) {
+                                          start2--;
+                                        } else {
+                                          start2 = 0;
+                                        }
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -305,37 +320,49 @@ class _AdditemState extends State<Additem> {
                         child: Container(
                           width: 74,
                           height: 24,
-                          child: DropdownButtonFormField(
-                            value: dropdownValue3,
-                            decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide:
-                                      BorderSide(color: khomebordercolor3)),
-                            ),
-                            items: Global.map((String value) {
-                              return new DropdownMenuItem<String>(
-                                value: value,
-                                child: new Text(
-                                  value,
-                                  style: TextStyle(
-                                    fontFamily: 'Calibre',
-                                    fontSize: 16,
-                                    color: khometextcolor3,
-                                  ),
+                          child: Row(
+                            children: <Widget>[
+                              Text(
+                                '$start1',
+                                style: TextStyle(
+                                  fontFamily: 'Calibre',
+                                  fontSize: 16,
+                                  color: khometextcolor3,
                                 ),
-                              );
-                            }).toList(),
-                            onChanged: (String newValue) {
-                              setState(() {
-                                dropdownValue3 = newValue;
-                              });
-                            },
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please Select Item';
-                              }
-                              return null;
-                            },
+                              ),
+                              Column(
+                                children: <Widget>[
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.arrow_drop_up,
+                                      color: khometextcolor3,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        if (start1 > 0) {
+                                          start1++;
+                                        }
+                                      });
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(
+                                      Icons.arrow_drop_up,
+                                      color: khometextcolor3,
+                                    ),
+                                    onPressed: () {
+                                      setState(() {
+                                        if (start1 > 0) {
+                                          start1--;
+                                        } else {
+                                          start1 = 0;
+                                        }
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
                         ),
                       ),
