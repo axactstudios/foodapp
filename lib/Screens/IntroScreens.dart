@@ -150,7 +150,7 @@ class _IntroScreenTwoState extends State<IntroScreenTwo> {
                   children: <Widget>[
                     Container(
                       child: Image.asset(
-                        'assets/images/slider1.png',
+                        'assets/images/slider2.png',
                         height: pHeight * 0.6,
                       ),
                     ),
@@ -274,7 +274,7 @@ class _IntroScreenThreeState extends State<IntroScreenThree> {
                 children: <Widget>[
                   Container(
                     child: Image.asset(
-                      'assets/images/slider1.png',
+                      'assets/images/slider3.png',
                       height: pHeight * 0.6,
                     ),
                   ),

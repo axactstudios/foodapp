@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:foodapp/Screens/FirstScreen.dart';
 
+import 'FirstScreen.dart';
+
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
