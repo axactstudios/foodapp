@@ -198,7 +198,8 @@ class _BasicDetailsState extends State<BasicDetails> {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => AddAddress(nameController.text,emailController.text,numberController.text),
+                        builder: (context) => AddAddress(nameController.text,
+                            emailController.text, numberController.text),
                       ),
                     );
                   },
@@ -269,7 +270,7 @@ class _BasicDetailsState extends State<BasicDetails> {
                       fontSize: pHeight * 0.025),
                 ),
                 SizedBox(
-                  height: pHeight * 0.11,
+                  height: pHeight * 0.09,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
