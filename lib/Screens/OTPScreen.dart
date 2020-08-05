@@ -21,6 +21,7 @@ class _OTPScreenState extends State<OTPScreen> {
   Widget build(BuildContext context) {
     final pHeight = MediaQuery.of(context).size.height;
     final pWidth = MediaQuery.of(context).size.width;
+     String otp;
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -74,6 +75,8 @@ class _OTPScreenState extends State<OTPScreen> {
                 fieldStyle: FieldStyle.box,
                 onCompleted: (pin) {
                   print("Completed: " + pin);
+                  otp=pin;
+
                 },
               ),
               SizedBox(
@@ -85,7 +88,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => BasicDetails(
-                        widget.phoneNumber,
+                        widget.phoneNumber,otp
                       ),
                     ),
                   );

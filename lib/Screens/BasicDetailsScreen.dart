@@ -198,7 +198,7 @@ class _BasicDetailsState extends State<BasicDetails> {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => AddAddress(),
+                        builder: (context) => AddAddress(nameController.text,emailController.text,numberController.text),
                       ),
                     );
                   },
