@@ -4,6 +4,8 @@ import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/AddBankDetailsScreen.dart';
 
 class AddDocuments extends StatefulWidget {
+  String address,pin,state,country;
+  AddDocuments(this.address,this.pin,this.state,this.country);
   @override
   _AddDocumentsState createState() => _AddDocumentsState();
 }
@@ -291,7 +293,7 @@ class _AddDocumentsState extends State<AddDocuments> {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => AddBankDetails(),
+                        builder: (context) => AddBankDetails('abcd','efgh','ijkl'),
                       ),
                     );
                   },

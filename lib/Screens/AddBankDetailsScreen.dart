@@ -3,6 +3,8 @@ import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/navbar.dart';
 
 class AddBankDetails extends StatefulWidget {
+  String profilephotourl,aadharurl,videourl;
+  AddBankDetails(this.profilephotourl,this.aadharurl,this.videourl);
   @override
   _AddBankDetailsState createState() => _AddBankDetailsState();
 }
