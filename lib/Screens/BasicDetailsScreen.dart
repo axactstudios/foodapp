@@ -29,6 +29,8 @@ class _BasicDetailsState extends State<BasicDetails> {
             child: Image.asset(
               'assets/images/bg@3x.png',
               height: pHeight * 0.15,
+              width: pWidth,
+              fit: BoxFit.fill,
             ),
           ),
           SafeArea(
@@ -270,7 +272,7 @@ class _BasicDetailsState extends State<BasicDetails> {
                       fontSize: pHeight * 0.025),
                 ),
                 SizedBox(
-                  height: pHeight * 0.09,
+                  height: pHeight * 0.08,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

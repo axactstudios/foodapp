@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/AddDocumentsScreen.dart';
-import'BasicDetailsScreen.dart';
+import 'BasicDetailsScreen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
@@ -43,11 +43,9 @@ class Album {
   }
 }
 
-
-
- class AddAddress extends StatefulWidget {
-  String name,email,phonenumber;
-  AddAddress(this.name,this.email,this.phonenumber);
+class AddAddress extends StatefulWidget {
+  String name, email, phonenumber;
+  AddAddress(this.name, this.email, this.phonenumber);
   @override
   _AddAddressState createState() => _AddAddressState();
 }
@@ -73,6 +71,8 @@ class _AddAddressState extends State<AddAddress> {
             child: Image.asset(
               'assets/images/bg@3x.png',
               height: pHeight * 0.15,
+              width: pWidth,
+              fit: BoxFit.fill,
             ),
           ),
           SafeArea(
@@ -281,7 +281,11 @@ class _AddAddressState extends State<AddAddress> {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) => AddDocuments(addressController.text,pinController.text,stateController.text,countryController.text),
+                        builder: (context) => AddDocuments(
+                            addressController.text,
+                            pinController.text,
+                            stateController.text,
+                            countryController.text),
                       ),
                     );
                   },
