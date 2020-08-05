@@ -15,8 +15,6 @@ class LoginScreen extends StatefulWidget {
 
 Future<String> sendOtp(String number) async {
   HttpClient httpClient = new HttpClient();
-  number = '+91$number';
-  print(number);
 
   final String apiUrl =
       "https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/send_otp";
@@ -31,7 +29,7 @@ Future<String> sendOtp(String number) async {
 //  } else {
 //    return null;
 //  }
-  Map map = {"phoneNumber": '+919718764559'};
+  Map map = {"phoneNumber": '+91$number'};
   HttpClientRequest request = await httpClient.postUrl(Uri.parse(apiUrl));
   request.headers.set('content-type', 'application/json');
   request.add(utf8.encode(json.encode(map)));
@@ -153,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => OTPScreen(),
+                          builder: (context) => OTPScreen('+91$number'),
                         ),
                       );
                     },
