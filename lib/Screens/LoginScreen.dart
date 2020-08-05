@@ -2,17 +2,34 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/OTPScreen.dart';
+import 'package:foodapp/apimodels/otpmodel.dart';
+import'package:http/http.dart' as http;
+
 
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
-
+Future<OtpModel> sendOtp(String number) async {
+  final String apiUrl = "https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/send_otp";
+  final response= await  http.post(apiUrl, body: {
+    "phoneNumber":number
+  }).catchError((e){
+          print(e);});
+ if(response.statusCode!=null){
+   final String responseString = response.body;
+   return otpModelFromJson(responseString);
+ }
+ else{
+   return null;
+}
+   }
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController phoneController = new TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
+    OtpModel _user;
     final pHeight = MediaQuery.of(context).size.height;
     final pWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -108,7 +125,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: pHeight * 0.04,
                   ),
                   InkWell(
-                    onTap: () {
+                    onTap: () async{
+                      final String number=phoneController.text;
+                      final OtpModel user = await sendOtp(number);
+                      setState(() {
+                        _user = user;
+                      });
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -133,10 +155,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
+
                   ),
                   SizedBox(
                     height: pHeight * 0.05,
                   ),
+                  _user==null?Container():Text(_user.message),
                   Text(
                     'Continue with:',
                     textAlign: TextAlign.center,
@@ -167,6 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: pHeight * 0.34,
                   ),
+
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
@@ -197,4 +222,5 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
 }
