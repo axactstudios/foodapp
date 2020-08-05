@@ -7,9 +7,11 @@ import 'package:foodapp/Screens/BasicDetailsScreen.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
+import 'home.dart';
+
 class OTPScreen extends StatefulWidget {
-  String phoneNumber;
-  OTPScreen(this.phoneNumber);
+  String phoneNumber;String parent;
+  OTPScreen(this.phoneNumber,this .parent);
   @override
   _OTPScreenState createState() => _OTPScreenState();
 }
@@ -82,35 +84,55 @@ class _OTPScreenState extends State<OTPScreen> {
               SizedBox(
                 height: pHeight * 0.05,
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => BasicDetails(
-                        widget.phoneNumber,otp
+              InkWell
+                  (
+
+                  onTap: () {
+                    if(widget.parent=='register'){
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            BasicDetails(
+                                widget.phoneNumber, otp
+                            ),
                       ),
+                    );
+                  }
+                else{
+              Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+              builder: (context) =>
+              Home(),
                     ),
-                  );
-                },
-                child: Container(
-                  width: pWidth * 0.7,
-                  height: pHeight * 0.05,
-                  decoration: BoxDecoration(
-                    color: kButtonColor,
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Center(
-                    child: Text(
-                      'LOGIN',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontFamily: 'Calibre',
-                          fontSize: pHeight * 0.022),
+                    );
+              }
+                  },
+
+                  child: Container(
+                    width: pWidth * 0.7,
+                    height: pHeight * 0.05,
+                    decoration: BoxDecoration(
+                      color: kButtonColor,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Center(
+                      child:(widget.parent=='register')? Text(
+                  'Register here',
+                  style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: 'Calibre',
+                  fontSize: pHeight * 0.022),
+                  ):Text('Login',style:TextStyle(color:Colors.white,fontFamily:'Calibre',fontSize:pHeight*0.022 ))
+
                     ),
                   ),
                 ),
-              ),
+
+
+
+
               SizedBox(
                 height: pHeight * 0.05,
               ),
@@ -135,11 +157,13 @@ class _OTPScreenState extends State<OTPScreen> {
                         fontSize: pHeight * 0.022),
                   ),
                 ],
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+              )
+
+
+],
+),
+),
+),
+);
+}
 }
