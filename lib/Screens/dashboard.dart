@@ -11,9 +11,9 @@ class _DashBoardState extends State<DashBoard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kdashboard1,
+        backgroundColor: Colors.white,
       ),
-      backgroundColor: kdashboard1,
+      backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.only(top: 50),
         child: Column(

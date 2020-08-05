@@ -32,6 +32,7 @@ class _HomeState extends State<Home> {
                 height: 12,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
                     'Total Qty',
@@ -56,6 +57,7 @@ class _HomeState extends State<Home> {
                 height: 10,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
                     'Order Placed',
@@ -80,6 +82,7 @@ class _HomeState extends State<Home> {
                 height: 10,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
                     'Picked-Up',
@@ -104,6 +107,7 @@ class _HomeState extends State<Home> {
                 height: 10,
               ),
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Text(
                     'Order Close Time',
@@ -131,6 +135,7 @@ class _HomeState extends State<Home> {
     }
 
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: Icon(Icons.location_on, color: Colors.black45),

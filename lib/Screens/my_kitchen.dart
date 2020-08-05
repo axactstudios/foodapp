@@ -15,6 +15,7 @@ class _MykitchenState extends State<Mykitchen> {
     final pHeight = MediaQuery.of(context).size.height;
     final pWidth = MediaQuery.of(context).size.width;
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         leading: Icon(Icons.location_on, color: Colors.black),
         backgroundColor: Colors.white,
