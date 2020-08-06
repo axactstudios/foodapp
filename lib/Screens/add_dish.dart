@@ -53,6 +53,8 @@ class _AdditemState extends State<Additem> {
   int start2 = 0;
   @override
   Widget build(BuildContext context) {
+    final pHeight = MediaQuery.of(context).size.height;
+    final pWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -92,13 +94,13 @@ class _AdditemState extends State<Additem> {
                   },
                 ),
                 SizedBox(
-                  height: 10,
+                  height : pHeight * 0.01,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     SizedBox(
-                      width: 195,
+                      width: pWidth * 0.54,
                       child: TextFormField(
                         style: TextStyle(
                           fontSize: 20,
@@ -122,7 +124,7 @@ class _AdditemState extends State<Additem> {
                       width: 25,
                     ),
                     SizedBox(
-                      width: 102,
+                      width: pWidth * 0.3,
                       child: Padding(
                         padding: const EdgeInsets.only(top: 17),
                         child: DropdownButtonFormField(
@@ -157,7 +159,7 @@ class _AdditemState extends State<Additem> {
                   ],
                 ),
                 SizedBox(
-                  height: 10,
+                  height : pHeight * 0.01,
                 ),
                 TextFormField(
                   style: TextStyle(
@@ -178,7 +180,7 @@ class _AdditemState extends State<Additem> {
                   },
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 20),
+                  padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   child: Row(
                     children: <Widget>[
                       but1
@@ -213,7 +215,7 @@ class _AdditemState extends State<Additem> {
                               ),
                             ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 5, left: 5),
+                        padding: const EdgeInsets.only(top: 5, left: 5, bottom: 0),
                         child: Text(
                           'Local',
                           style: TextStyle(
@@ -225,8 +227,8 @@ class _AdditemState extends State<Additem> {
                       Padding(
                         padding: const EdgeInsets.only(left: 5),
                         child: Container(
-                          width: 74,
-                          height: 24,
+                          width: pWidth * 0.21,
+                          height : pHeight * 0.15,
                           child: Row(
                             children: <Widget>[
                               Text(
@@ -254,7 +256,7 @@ class _AdditemState extends State<Additem> {
                                   ),
                                   IconButton(
                                     icon: Icon(
-                                      Icons.arrow_drop_up,
+                                      Icons.arrow_drop_down,
                                       color: khometextcolor3,
                                     ),
                                     onPressed: () {
@@ -317,8 +319,8 @@ class _AdditemState extends State<Additem> {
                       Padding(
                         padding: const EdgeInsets.only(left: 5),
                         child: Container(
-                          width: 74,
-                          height: 24,
+                          width: pWidth * 0.24,
+                          height: pHeight * 0.15,
                           child: Row(
                             children: <Widget>[
                               Text(
@@ -347,7 +349,7 @@ class _AdditemState extends State<Additem> {
                                   ),
                                   IconButton(
                                     icon: Icon(
-                                      Icons.arrow_drop_up,
+                                      Icons.arrow_drop_down,
                                       color: khometextcolor3,
                                       size: 5,
                                     ),
@@ -371,12 +373,12 @@ class _AdditemState extends State<Additem> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(top: 5),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       SizedBox(
-                        width: 195,
+                        width: pWidth * 0.54,
                         child: TextFormField(
                           style: TextStyle(
                             fontSize: 20,
@@ -400,7 +402,7 @@ class _AdditemState extends State<Additem> {
                         width: 25,
                       ),
                       SizedBox(
-                        width: 102,
+                        width: pWidth * 0.3,
                         child: Padding(
                           padding: const EdgeInsets.only(top: 17),
                           child: DropdownButtonFormField(
@@ -441,7 +443,7 @@ class _AdditemState extends State<Additem> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       SizedBox(
-                        width: 195,
+                        width: pWidth * 0.54,
                         child: TextFormField(
                           style: TextStyle(
                             fontSize: 20,
@@ -465,7 +467,7 @@ class _AdditemState extends State<Additem> {
                         width: 25,
                       ),
                       SizedBox(
-                        width: 102,
+                        width: pWidth * 0.3 ,
                         child: Padding(
                           padding: const EdgeInsets.only(top: 17),
                           child: DropdownButtonFormField(

@@ -8,6 +8,8 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import '../Classes/Constants.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path/path.dart' as p;
+import 'package:flutter/services.dart';
+
 
 class AddDocuments extends StatefulWidget {
   String address, pin, state, country, phonenumber, otp, email, name;
@@ -16,6 +18,7 @@ class AddDocuments extends StatefulWidget {
   @override
   _AddDocumentsState createState() => _AddDocumentsState();
 }
+
 
 class _AddDocumentsState extends State<AddDocuments> {
   bool but1 = false;
@@ -312,7 +315,7 @@ class _AddDocumentsState extends State<AddDocuments> {
                       ),
                       SizedBox(
                         height: pHeight * 0.008,
-                      ),
+              
                       InkWell(
                         onTap: () {
                           _onAlertWithCustomContentPressed(context);
@@ -346,7 +349,11 @@ class _AddDocumentsState extends State<AddDocuments> {
                             ),
                           ),
                         ),
-                      ),
+                    onTap: (){
+
+                    },
+                  ),
+
                     ],
                   ),
                 ),
