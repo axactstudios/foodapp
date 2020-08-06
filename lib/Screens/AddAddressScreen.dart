@@ -46,8 +46,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 //}
 
 class AddAddress extends StatefulWidget {
-  String name, email, phonenumber,otp;
-  AddAddress(this.name, this.email, this.phonenumber,this.otp);
+  String name, email, phonenumber, otp;
+  AddAddress(this.name, this.email, this.phonenumber, this.otp);
   @override
   _AddAddressState createState() => _AddAddressState();
 }
@@ -294,7 +294,11 @@ class _AddAddressState extends State<AddAddress> {
                             addressController.text,
                             pinController.text,
                             stateController.text,
-                            countryController.text,widget.phonenumber,widget.otp,widget.email,widget.name),
+                            countryController.text,
+                            widget.phonenumber,
+                            widget.otp,
+                            widget.email,
+                            widget.name),
                       ),
                     );
                   },

@@ -10,7 +10,7 @@ import 'package:foodapp/Screens/BasicDetailsScreen.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
-import 'home.dart';
+import 'navbar.dart';
 
 class OTPScreen extends StatefulWidget {
   String phoneNumber;
@@ -131,7 +131,11 @@ class _OTPScreenState extends State<OTPScreen> {
               ),
               InkWell(
                 onTap: () {
+
+                  if (widget.parent == 'register') {
+
                   if (message == '{"message":"user Does not exists"}') {
+
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(

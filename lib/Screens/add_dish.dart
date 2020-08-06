@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../Classes/Constants.dart';
-import '../Classes/Constants.dart';
 
 class Additem extends StatefulWidget {
   @override
@@ -338,6 +337,7 @@ class _AdditemState extends State<Additem> {
                                     icon: Icon(
                                       Icons.arrow_drop_up,
                                       color: khometextcolor3,
+                                      size: 5,
                                     ),
                                     onPressed: () {
                                       setState(() {
@@ -351,6 +351,7 @@ class _AdditemState extends State<Additem> {
                                     icon: Icon(
                                       Icons.arrow_drop_down,
                                       color: khometextcolor3,
+                                      size: 5,
                                     ),
                                     onPressed: () {
                                       setState(() {
