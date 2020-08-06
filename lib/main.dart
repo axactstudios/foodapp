@@ -4,7 +4,9 @@ import 'package:foodapp/Screens/landing.dart';
 import 'package:foodapp/Screens/LoginScreen.dart';
 import 'package:foodapp/Screens/navbar.dart';
 
+import 'Screens/IntroScreens.dart';
 import 'Screens/LoginScreen.dart';
+import 'Screens/SplashScreen.dart';
 import 'Screens/navbar.dart';
 
 void main() {
@@ -17,8 +19,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Food App',
       routes: {
-        '/': (context) => Landing(),
-        '/login': (context) => LoginScreen(),
+
+        '/': (context) => SplashScreen(),
+        '/land': (context) => Landing(),
+        '/intro': (context) => IntroScreens(),
         '/home': (context) => Navbar(),
       },
       //home: SplashScreen(),
