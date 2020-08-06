@@ -2,9 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/IntroScreens.dart';
+import 'package:foodapp/Screens/landing.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../Classes/Constants.dart';
+ String role;
 
+//addRole() async {
+  //SharedPreferences prefs = await SharedPreferences.getInstance();
+  //prefs.setString('role', "chef");
+//}
 class FirstScreen extends StatefulWidget {
   @override
   _FirstScreenState createState() => _FirstScreenState();
@@ -131,10 +138,12 @@ class _FirstScreenState extends State<FirstScreen> {
                           ),
                           InkWell(
                             onTap: () {
+                              //role = "chef";
+
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => IntroScreens(),
+                                  builder: (context) => Landing(),
                                 ),
                               );
                             },

@@ -1,9 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/navbar.dart';
+
+
 
 class AddBankDetails extends StatefulWidget {
   String profilephotourl, aadharurl, videourl ,address, pin, state, country,phonenumber,otp,email,name;
@@ -46,6 +48,14 @@ class _AddBankDetailsState extends State<AddBankDetails> {
   TextEditingController bankController = new TextEditingController(text: '');
   TextEditingController accountController = new TextEditingController(text: '');
   TextEditingController ifscController = new TextEditingController(text: '');
+
+  saveBankDetails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('bank', bankController.text);
+    prefs.setString('account', accountController.text);
+    prefs.setString('ifsc', ifscController.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     final pHeight = MediaQuery.of(context).size.height;

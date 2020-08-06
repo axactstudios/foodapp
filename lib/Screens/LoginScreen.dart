@@ -1,6 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
-
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
@@ -41,6 +41,11 @@ Future<String> sendOtp(String number) async {
 
 class _LoginScreenState extends State<LoginScreen> {
   TextEditingController phoneController = new TextEditingController(text: '');
+
+  saveAddressDetails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('phone', phoneController.text);
+  }
 
   @override
   Widget build(BuildContext context) {

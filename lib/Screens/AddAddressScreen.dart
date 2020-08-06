@@ -6,6 +6,8 @@ import 'BasicDetailsScreen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 //Future<Album> createAlbum(String title) async {
 //  final http.Response response = await http.post(
@@ -56,6 +58,13 @@ class _AddAddressState extends State<AddAddress> {
   TextEditingController stateController = new TextEditingController(text: '');
   TextEditingController pinController = new TextEditingController(text: '');
 //  Future<Album> _futureAlbum;
+  saveAddressDetails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('address', addressController.text);
+    prefs.setString('country', countryController.text);
+    prefs.setString('state', stateController.text);
+    prefs.setString('pin', pinController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
