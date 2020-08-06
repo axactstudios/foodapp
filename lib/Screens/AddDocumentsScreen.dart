@@ -10,7 +10,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter/services.dart';
 
-
 class AddDocuments extends StatefulWidget {
   String address, pin, state, country, phonenumber, otp, email, name;
   AddDocuments(this.address, this.pin, this.state, this.country,
@@ -18,7 +17,6 @@ class AddDocuments extends StatefulWidget {
   @override
   _AddDocumentsState createState() => _AddDocumentsState();
 }
-
 
 class _AddDocumentsState extends State<AddDocuments> {
   bool but1 = false;
@@ -100,35 +98,35 @@ class _AddDocumentsState extends State<AddDocuments> {
                 children: <Widget>[
                   but1
                       ? Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          but1 = false;
-                        });
-                      },
-                      child: Icon(
-                        Icons.check_circle,
-                        color: khometextcolor1,
-                        size: 16,
-                      ),
-                    ),
-                  )
+                          padding: const EdgeInsets.only(left: 5),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                but1 = false;
+                              });
+                            },
+                            child: Icon(
+                              Icons.check_circle,
+                              color: khometextcolor1,
+                              size: 16,
+                            ),
+                          ),
+                        )
                       : Padding(
-                    padding: const EdgeInsets.only(left: 5),
-                    child: InkWell(
-                      onTap: () {
-                        setState(() {
-                          but1 = true;
-                        });
-                      },
-                      child: Icon(
-                        Icons.check_circle,
-                        color: khometextcolor2,
-                        size: 16,
-                      ),
-                    ),
-                  ),
+                          padding: const EdgeInsets.only(left: 5),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                but1 = true;
+                              });
+                            },
+                            child: Icon(
+                              Icons.check_circle,
+                              color: khometextcolor2,
+                              size: 16,
+                            ),
+                          ),
+                        ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5, left: 5),
                     child: Text(
@@ -244,18 +242,26 @@ class _AddDocumentsState extends State<AddDocuments> {
                     ),
                   ),
                 ),
-                Container(
-                  height: pHeight * 0.12,
-                  width: pHeight * 0.12,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(255, 225, 232, 1),
-                    borderRadius: BorderRadius.circular(pHeight * 0.12),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.add,
-                      color: kButtonColor,
-                      size: pHeight * 0.035,
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      fileType = 'image';
+                    });
+                    filePickerimg(context);
+                  },
+                  child: Container(
+                    height: pHeight * 0.12,
+                    width: pHeight * 0.12,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(255, 225, 232, 1),
+                      borderRadius: BorderRadius.circular(pHeight * 0.12),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.add,
+                        color: kButtonColor,
+                        size: pHeight * 0.035,
+                      ),
                     ),
                   ),
                 ),
@@ -286,72 +292,70 @@ class _AddDocumentsState extends State<AddDocuments> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                  Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            'ADD IMAGE',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Calibre',
+                                fontSize: pHeight * 0.022),
+                          ),
+                          Icon(
+                            Icons.info,
+                            color: Colors.black.withOpacity(0.6),
+                            size: pHeight * 0.02,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: pHeight * 0.005,
+                      ),
                       Text(
-                        'ADD IMAGE',
+                        'Make sure your id proof should not be blur.',
                         style: TextStyle(
-                            color: Colors.black,
+                            color: kTextColor,
                             fontFamily: 'Calibre',
-                            fontSize: pHeight * 0.022),
+                            fontSize: pHeight * 0.02),
                       ),
-                      Icon(
-                        Icons.info,
-                        color: Colors.black.withOpacity(0.6),
-                        size: pHeight * 0.02,
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: pHeight * 0.005,
-                  ),
-                  Text(
-                    'Make sure your id proof should not be blur.',
-                    style: TextStyle(
-                        color: kTextColor,
-                        fontFamily: 'Calibre',
-                        fontSize: pHeight * 0.02),
-                  ),
-                  SizedBox(
-                    height: pHeight * 0.008,
-
-                    child : InkWell(
-                      onTap: () {
-                        _onAlertWithCustomContentPressed(context);
-                      },
-                      child: Container(
-                        height: pHeight * 0.1,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(255, 225, 232, 1),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(
-                                Icons.cloud_upload,
-                                color: kButtonColor,
-                                size: pHeight * 0.05,
+                      SizedBox(
+                        height: pHeight * 0.08,
+                        child: InkWell(
+                          onTap: () {
+                            _onAlertWithCustomContentPressed(context);
+                          },
+                          child: Container(
+                            height: pHeight * 0.1,
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(255, 225, 232, 1),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.cloud_upload,
+                                    color: kButtonColor,
+                                    size: pHeight * 0.05,
+                                  ),
+                                  SizedBox(
+                                    width: pWidth * 0.04,
+                                  ),
+                                  Text(
+                                    'Upload Here',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'Calibre',
+                                        fontSize: pHeight * 0.022),
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                width: pWidth * 0.04,
-                              ),
-                              Text(
-                                'Upload Here',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'Calibre',
-                                    fontSize: pHeight * 0.022),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
-
-                    ),),
-
                     ],
                   ),
                 ),
