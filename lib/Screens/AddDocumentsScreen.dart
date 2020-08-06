@@ -321,6 +321,7 @@ class _AddDocumentsState extends State<AddDocuments> {
                       ),
                       SizedBox(
                         height: pHeight * 0.08,
+
                         child: InkWell(
                           onTap: () {
                             _onAlertWithCustomContentPressed(context);
