@@ -7,11 +7,12 @@ import 'package:foodapp/Screens/BasicDetailsScreen.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
 
-import 'home.dart';
+import 'navbar.dart';
 
 class OTPScreen extends StatefulWidget {
-  String phoneNumber;String parent;
-  OTPScreen(this.phoneNumber,this .parent);
+  String phoneNumber;
+  String parent;
+  OTPScreen(this.phoneNumber, this.parent);
   @override
   _OTPScreenState createState() => _OTPScreenState();
 }
@@ -23,7 +24,7 @@ class _OTPScreenState extends State<OTPScreen> {
   Widget build(BuildContext context) {
     final pHeight = MediaQuery.of(context).size.height;
     final pWidth = MediaQuery.of(context).size.width;
-     String otp;
+    String otp;
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -77,62 +78,54 @@ class _OTPScreenState extends State<OTPScreen> {
                 fieldStyle: FieldStyle.box,
                 onCompleted: (pin) {
                   print("Completed: " + pin);
-                  otp=pin;
-
+                  otp = pin;
                 },
               ),
               SizedBox(
                 height: pHeight * 0.05,
               ),
-              InkWell
-                  (
-
-                  onTap: () {
-                    if(widget.parent=='register'){
+              InkWell(
+                onTap: () {
+                  if (widget.parent == 'register') {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            BasicDetails(
-                                widget.phoneNumber, otp
-                            ),
+                            BasicDetails(widget.phoneNumber, otp),
+                      ),
+                    );
+                  } else {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Navbar(),
                       ),
                     );
                   }
-                else{
-              Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-              builder: (context) =>
-              Home(),
-                    ),
-                    );
-              }
-                  },
-
-                  child: Container(
-                    width: pWidth * 0.7,
-                    height: pHeight * 0.05,
-                    decoration: BoxDecoration(
-                      color: kButtonColor,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Center(
-                      child:(widget.parent=='register')? Text(
-                  'Register here',
-                  style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Calibre',
-                  fontSize: pHeight * 0.022),
-                  ):Text('Login',style:TextStyle(color:Colors.white,fontFamily:'Calibre',fontSize:pHeight*0.022 ))
-
-                    ),
+                },
+                child: Container(
+                  width: pWidth * 0.7,
+                  height: pHeight * 0.05,
+                  decoration: BoxDecoration(
+                    color: kButtonColor,
+                    borderRadius: BorderRadius.circular(4),
                   ),
+                  child: Center(
+                      child: (widget.parent == 'register')
+                          ? Text(
+                              'Register here',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Calibre',
+                                  fontSize: pHeight * 0.022),
+                            )
+                          : Text('Login',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Calibre',
+                                  fontSize: pHeight * 0.022))),
                 ),
-
-
-
-
+              ),
               SizedBox(
                 height: pHeight * 0.05,
               ),
@@ -158,12 +151,10 @@ class _OTPScreenState extends State<OTPScreen> {
                   ),
                 ],
               )
-
-
-],
-),
-),
-),
-);
-}
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
