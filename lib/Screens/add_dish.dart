@@ -95,7 +95,7 @@ class _AdditemState extends State<Additem> {
                   },
                 ),
                 SizedBox(
-                  height : pHeight * 0.01,
+                  height: pHeight * 0.01,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -160,7 +160,7 @@ class _AdditemState extends State<Additem> {
                   ],
                 ),
                 SizedBox(
-                  height : pHeight * 0.01,
+                  height: pHeight * 0.01,
                 ),
                 TextFormField(
                   style: TextStyle(
@@ -216,7 +216,8 @@ class _AdditemState extends State<Additem> {
                               ),
                             ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 5, left: 5, bottom: 0),
+                        padding:
+                            const EdgeInsets.only(top: 5, left: 5, bottom: 0),
                         child: Text(
                           'Local',
                           style: TextStyle(
@@ -229,7 +230,7 @@ class _AdditemState extends State<Additem> {
                         padding: const EdgeInsets.only(left: 5),
                         child: Container(
                           width: pWidth * 0.21,
-                          height : pHeight * 0.15,
+                          height: pHeight * 0.15,
                           child: Row(
                             children: <Widget>[
                               Text(
@@ -243,19 +244,21 @@ class _AdditemState extends State<Additem> {
                               Column(
                                 children: <Widget>[
                                   IconButton(
+                                    padding: EdgeInsets.only(bottom: 0),
                                     icon: Icon(
                                       Icons.arrow_drop_up,
                                       color: khometextcolor3,
                                     ),
                                     onPressed: () {
                                       setState(() {
-                                        if (start2 > 0) {
+                                        if (start2 >= 0) {
                                           start2++;
                                         }
                                       });
                                     },
                                   ),
                                   IconButton(
+                                    padding: EdgeInsets.only(top: 0),
                                     icon: Icon(
                                       Icons.arrow_drop_down,
                                       color: khometextcolor3,
@@ -335,19 +338,21 @@ class _AdditemState extends State<Additem> {
                               Column(
                                 children: <Widget>[
                                   IconButton(
+                                    padding: EdgeInsets.only(bottom: 0),
                                     icon: Icon(
                                       Icons.arrow_drop_up,
                                       color: khometextcolor3,
                                     ),
                                     onPressed: () {
                                       setState(() {
-                                        if (start1 > 0) {
+                                        if (start1 >= 0) {
                                           start1++;
                                         }
                                       });
                                     },
                                   ),
                                   IconButton(
+                                    padding: EdgeInsets.only(top: 0),
                                     icon: Icon(
                                       Icons.arrow_drop_down,
                                       color: khometextcolor3,
@@ -466,7 +471,7 @@ class _AdditemState extends State<Additem> {
                         width: 25,
                       ),
                       SizedBox(
-                        width: pWidth * 0.3 ,
+                        width: pWidth * 0.3,
                         child: Padding(
                           padding: const EdgeInsets.only(top: 17),
                           child: DropdownButtonFormField(
