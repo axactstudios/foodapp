@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/AddBankDetailsScreen.dart';
+import 'package:path/path.dart' as p;
+import 'package:flutter/services.dart';
+import 'dart:io';
 
 class AddDocuments extends StatefulWidget {
   String address, pin, state, country,phonenumber,otp,email,name;
@@ -9,6 +12,7 @@ class AddDocuments extends StatefulWidget {
   @override
   _AddDocumentsState createState() => _AddDocumentsState();
 }
+
 
 class _AddDocumentsState extends State<AddDocuments> {
   @override
@@ -167,35 +171,41 @@ class _AddDocumentsState extends State<AddDocuments> {
                       SizedBox(
                         height: pHeight * 0.008,
                       ),
-                      Container(
-                        height: pHeight * 0.1,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(255, 225, 232, 1),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(
-                                Icons.cloud_upload,
-                                color: kButtonColor,
-                                size: pHeight * 0.05,
-                              ),
-                              SizedBox(
-                                width: pWidth * 0.04,
-                              ),
-                              Text(
-                                'Upload Here',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'Calibre',
-                                    fontSize: pHeight * 0.022),
-                              ),
-                            ],
+                  InkWell(
+                    child: Container(
+                          height: pHeight * 0.1,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(255, 225, 232, 1),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.cloud_upload,
+                                  color: kButtonColor,
+                                  size: pHeight * 0.05,
+                                ),
+                                SizedBox(
+                                  width: pWidth * 0.04,
+                                ),
+                                Text(
+                                  'Upload Here',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'Calibre',
+                                      fontSize: pHeight * 0.022),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
+                    onTap: (){
+
+                    },
+                  ),
+
                     ],
                   ),
                 ),

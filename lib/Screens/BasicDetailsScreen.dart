@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/AddAddressScreen.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 class BasicDetails extends StatefulWidget {
   String phoneNumber, otp;
   BasicDetails(this.phoneNumber, this.otp);
@@ -14,6 +14,13 @@ class _BasicDetailsState extends State<BasicDetails> {
   TextEditingController nameController = new TextEditingController(text: '');
   TextEditingController numberController = new TextEditingController(text: '');
   TextEditingController emailController = new TextEditingController(text: '');
+
+  saveBasicDetails() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString('name', nameController.text);
+    prefs.setString('number', numberController.text);
+    prefs.setString('email', emailController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
