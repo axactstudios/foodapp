@@ -242,18 +242,26 @@ class _AddDocumentsState extends State<AddDocuments> {
                     ),
                   ),
                 ),
-                Container(
-                  height: pHeight * 0.12,
-                  width: pHeight * 0.12,
-                  decoration: BoxDecoration(
-                    color: Color.fromRGBO(255, 225, 232, 1),
-                    borderRadius: BorderRadius.circular(pHeight * 0.12),
-                  ),
-                  child: Center(
-                    child: Icon(
-                      Icons.add,
-                      color: kButtonColor,
-                      size: pHeight * 0.035,
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      fileType = 'image';
+                    });
+                    filePickerimg(context);
+                  },
+                  child: Container(
+                    height: pHeight * 0.12,
+                    width: pHeight * 0.12,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(255, 225, 232, 1),
+                      borderRadius: BorderRadius.circular(pHeight * 0.12),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.add,
+                        color: kButtonColor,
+                        size: pHeight * 0.035,
+                      ),
                     ),
                   ),
                 ),
@@ -312,7 +320,8 @@ class _AddDocumentsState extends State<AddDocuments> {
                             fontSize: pHeight * 0.02),
                       ),
                       SizedBox(
-                        height: pHeight * 0.1,
+                        height: pHeight * 0.08,
+
                         child: InkWell(
                           onTap: () {
                             _onAlertWithCustomContentPressed(context);
