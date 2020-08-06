@@ -24,22 +24,12 @@ TextEditingController te = new TextEditingController();
 
 class _OTPScreenState extends State<OTPScreen> {
   String message = '';
+  String otp = '';
 
   Future<String> getUID() async {
     HttpClient httpClient = new HttpClient();
     final String apiUrl =
         "https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/users/${widget.phoneNumber}";
-//  final  response =
-//      await http.post(apiUrl, body: {"phoneNumber": number}).catchError((e) {
-//    print(e);
-//  });
-//  print(response.body.toString());
-//  if (response.statusCode != null) {
-//    final String responseString = response.body;
-//    return otpModelFromJson(responseString);
-//  } else {
-//    return null;
-//  }
     HttpClientRequest request = await httpClient.getUrl(Uri.parse(apiUrl));
     request.headers.set('content-type', 'application/json');
     HttpClientResponse response = await request.close();
@@ -49,6 +39,21 @@ class _OTPScreenState extends State<OTPScreen> {
       print(message);
     });
     httpClient.close();
+  }
+
+  Future<String> login() async {
+    HttpClient httpClient = new HttpClient();
+    final String apiUrl =
+        "https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/login";
+    Map map = {"phoneNumber": '+91${widget.phoneNumber}', "otpValue": otp};
+    HttpClientRequest request = await httpClient.postUrl(Uri.parse(apiUrl));
+    request.headers.set('content-type', 'application/json');
+    request.add(utf8.encode(json.encode(map)));
+    HttpClientResponse response = await request.close();
+    String reply = await response.transform(utf8.decoder).join();
+    httpClient.close();
+    print(reply);
+    return reply;
   }
 
   @override
@@ -116,6 +121,9 @@ class _OTPScreenState extends State<OTPScreen> {
                 onCompleted: (pin) {
                   print("Completed: " + pin);
                   otp = pin;
+                  setState(() {
+                    print(otp);
+                  });
                 },
               ),
               SizedBox(
@@ -132,6 +140,7 @@ class _OTPScreenState extends State<OTPScreen> {
                       ),
                     );
                   } else {
+                    login();
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
