@@ -145,8 +145,8 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                   child: TextFormField(
                     controller: bankController,
                     validator: (value) {
-                      if (value.length < 5) {
-                        return 'Invalid bank name';
+                      if (value.isEmpty) {
+                        return 'Invalid Bank Name';
                       } else {
                         return null;
                       }
@@ -173,7 +173,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                   child: TextFormField(
                     controller: accountController,
                     validator: (value) {
-                      if (value.length < 14) {
+                      if (value.length < 11) {
                         return 'Invalid account number';
                       } else {
                         return null;
