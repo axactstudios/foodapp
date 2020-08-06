@@ -155,8 +155,8 @@ class _AddAddressState extends State<AddAddress> {
                   child: TextFormField(
                     controller: addressController,
                     validator: (value) {
-                      if (value.length < 10) {
-                        return 'Invalid phone number';
+                      if (value.isEmpty) {
+                        return 'Invalid Address';
                       } else {
                         return null;
                       }
@@ -187,8 +187,8 @@ class _AddAddressState extends State<AddAddress> {
                   child: TextFormField(
                     controller: countryController,
                     validator: (value) {
-                      if (value.length < 10) {
-                        return 'Invalid phone number';
+                      if (value.isEmpty) {
+                        return 'Invalid Country';
                       } else {
                         return null;
                       }
@@ -220,8 +220,8 @@ class _AddAddressState extends State<AddAddress> {
                   child: TextFormField(
                     controller: stateController,
                     validator: (value) {
-                      if (value.length < 10) {
-                        return 'Invalid phone number';
+                      if (value.isEmpty) {
+                        return 'Invalid State';
                       } else {
                         return null;
                       }
@@ -253,8 +253,8 @@ class _AddAddressState extends State<AddAddress> {
                   child: TextFormField(
                     controller: pinController,
                     validator: (value) {
-                      if (value.length < 10) {
-                        return 'Invalid phone number';
+                      if (value.length < 6) {
+                        return 'Invalid PIN Code';
                       } else {
                         return null;
                       }

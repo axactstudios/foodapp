@@ -89,7 +89,7 @@ class _AdditemState extends State<Additem> {
                   // The validator receives the text that the user has entered.
                   validator: (value) {
                     if (value.isEmpty) {
-                      return 'Enter File Name';
+                      return 'Enter Dish Name';
                     }
                     return null;
                   },
@@ -115,7 +115,7 @@ class _AdditemState extends State<Additem> {
                         // The validator receives the text that the user has entered.
                         validator: (value) {
                           if (value.isEmpty) {
-                            return 'Enter File Name';
+                            return 'Enter Dish Price';
                           }
                           return null;
                         },
@@ -391,7 +391,7 @@ class _AdditemState extends State<Additem> {
                           // The validator receives the text that the user has entered.
                           validator: (value) {
                             if (value.isEmpty) {
-                              return 'Enter File Name';
+                              return 'Enter Service Count';
                             }
                             return null;
                           },
@@ -456,7 +456,7 @@ class _AdditemState extends State<Additem> {
                           // The validator receives the text that the user has entered.
                           validator: (value) {
                             if (value.isEmpty) {
-                              return 'Enter File Name';
+                              return 'Enter Dish Supply Time';
                             }
                             return null;
                           },
