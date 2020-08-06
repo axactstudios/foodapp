@@ -11,8 +11,12 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
+    final pHeight = MediaQuery.of(context).size.height;
+    final pWidth = MediaQuery.of(context).size.width;
     Card Order(String dish) {
       return Card(
+
+        elevation: 5,
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
@@ -29,7 +33,7 @@ class _HomeState extends State<Home> {
                 ],
               ),
               SizedBox(
-                height: 12,
+                height: pHeight * 0.035,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -42,7 +46,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   SizedBox(
-                    width: 180,
+                    width: pWidth * 0.1,
                   ),
                   Text(
                     '50 Servings',
@@ -54,7 +58,7 @@ class _HomeState extends State<Home> {
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: pHeight * 0.01,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -67,7 +71,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   SizedBox(
-                    width: 135,
+                    width: pWidth * 0.1,
                   ),
                   Text(
                     '30/50 Servings',
@@ -79,7 +83,7 @@ class _HomeState extends State<Home> {
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: pHeight * 0.01,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -92,7 +96,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   SizedBox(
-                    width: 180,
+                    width: pWidth * 0.1,
                   ),
                   Text(
                     '20/30 Item',
@@ -104,7 +108,7 @@ class _HomeState extends State<Home> {
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: pHeight * 0.01,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -117,7 +121,7 @@ class _HomeState extends State<Home> {
                     ),
                   ),
                   SizedBox(
-                    width: 120,
+                    width: pWidth * 0.1,
                   ),
                   Text(
                     '5 hrs 20 mins',
@@ -145,7 +149,7 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             Order('Speacial Gajar Ka Halwa'),
             SizedBox(
-              height: 10,
+              height: pHeight * 0.01,
             ),
             Order('Tandoori Murgh'),
           ],

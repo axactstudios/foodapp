@@ -7,8 +7,11 @@ class DashBoard extends StatefulWidget {
 }
 
 class _DashBoardState extends State<DashBoard> {
+
   @override
   Widget build(BuildContext context) {
+    final pHeight = MediaQuery.of(context).size.height;
+    final pWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -19,7 +22,7 @@ class _DashBoardState extends State<DashBoard> {
         child: Column(
           children: <Widget>[
             Container(
-              height: 200,
+              height: pHeight * 0.25,
               child: Card(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 15),
@@ -42,8 +45,8 @@ class _DashBoardState extends State<DashBoard> {
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: <Widget>[
                             Container(
-                              height: 108,
-                              width: 163,
+                              height: pHeight * 0.15,
+                              width: pWidth * 0.45,
                               child: Card(
                                 color: kdashboard2,
                                 child: Column(
@@ -76,8 +79,8 @@ class _DashBoardState extends State<DashBoard> {
                               ),
                             ),
                             Container(
-                              height: 108,
-                              width: 163,
+                              height: pHeight * 0.15,
+                              width: pWidth * 0.45,
                               child: Card(
                                 color: kdashboard3,
                                 child: Column(
@@ -121,6 +124,9 @@ class _DashBoardState extends State<DashBoard> {
               padding: const EdgeInsets.only(left: 10, top: 20),
               child: Row(
                 children: <Widget>[
+                  SizedBox(
+                    width: pWidth * 0.02,
+                  ),
                   Text(
                     'MONTHLY',
                     style: TextStyle(
@@ -129,7 +135,7 @@ class _DashBoardState extends State<DashBoard> {
                         fontSize: 15),
                   ),
                   SizedBox(
-                    width: 180,
+                    width: pWidth * 0.4,
                   ),
                   Text(
                     'Date',
@@ -144,9 +150,10 @@ class _DashBoardState extends State<DashBoard> {
             Padding(
               padding: const EdgeInsets.only(top: 20),
               child: Container(
-                width: 321,
-                height: 94,
+                  height: pHeight * 0.15,
+                  width: pWidth * 0.9,
                 child: Card(
+                  elevation: 5,
                   child: Column(
                     children: <Widget>[
                       Padding(
@@ -207,8 +214,8 @@ class _DashBoardState extends State<DashBoard> {
               child: InkWell(
                 onTap: () {},
                 child: Container(
-                  width: 250,
-                  height: 50,
+                  width: pWidth * 0.55,
+                  height: pHeight * 0.08,
                   decoration: BoxDecoration(
                     color: khometextcolor1,
                     borderRadius: BorderRadius.circular(10),
