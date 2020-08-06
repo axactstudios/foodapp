@@ -1,22 +1,167 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/AddBankDetailsScreen.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
+import '../Classes/Constants.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter/services.dart';
-import 'dart:io';
+
 
 class AddDocuments extends StatefulWidget {
-  String address, pin, state, country,phonenumber,otp,email,name;
-  AddDocuments(this.address, this.pin, this.state, this.country,this.phonenumber,this.otp,this.email,this.name);
+  String address, pin, state, country, phonenumber, otp, email, name;
+  AddDocuments(this.address, this.pin, this.state, this.country,
+      this.phonenumber, this.otp, this.email, this.name);
   @override
   _AddDocumentsState createState() => _AddDocumentsState();
 }
 
 
 class _AddDocumentsState extends State<AddDocuments> {
+  bool but1 = false;
+  String fileType = '';
+  File file;
+  String fileName = '';
+  String operationText = '';
+  bool isUploaded = true;
+  String result = '';
+  Future filePickerimg(BuildContext context) async {
+    if (fileType == 'image') {
+      file = await FilePicker.getFile(type: FileType.image);
+      setState(() {
+        fileName = p.basename(file.path);
+      });
+      print(fileName);
+    }
+  }
+
+  Future filePickervid(BuildContext context) async {
+    if (fileType == 'video') {
+      file = await FilePicker.getFile(type: FileType.video);
+      setState(() {
+        fileName = p.basename(file.path);
+      });
+      print(fileName);
+    }
+  }
+
   @override
+  final Items = ['Aadhar Card', 'Voter Id Card', 'Pan Card', 'Others'];
+  String dropdownValue1 = 'Aadhar Card';
   Widget build(BuildContext context) {
+    _onAlertWithCustomContentPressed(context) {
+      Alert(
+          context: context,
+          title: "ADD DOCUMENT",
+          content: Column(
+            children: <Widget>[
+              DropdownButtonFormField(
+                decoration: InputDecoration(
+                  labelText: "Select Your ID Type",
+                  labelStyle: TextStyle(
+                      fontFamily: 'Calibre',
+                      color: khometextcolor2,
+                      fontSize: 20),
+                ),
+                value: dropdownValue1,
+                items: Items.map((String value) {
+                  return new DropdownMenuItem<String>(
+                    value: value,
+                    child: new Text(
+                      value,
+                      style: TextStyle(
+                        fontFamily: 'Calibre',
+                        fontSize: 16,
+                        color: khometextcolor3,
+                      ),
+                    ),
+                  );
+                }).toList(),
+                onChanged: (String newValue) {
+                  setState(() {
+                    dropdownValue1 = newValue;
+                  });
+                },
+                validator: (value) {
+                  if (value.isEmpty) {
+                    return 'Please Select Item';
+                  }
+                  return null;
+                },
+              ),
+              Container(
+                height: 153,
+                width: 234,
+              ),
+              Row(
+                children: <Widget>[
+                  but1
+                      ? Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          but1 = false;
+                        });
+                      },
+                      child: Icon(
+                        Icons.check_circle,
+                        color: khometextcolor1,
+                        size: 16,
+                      ),
+                    ),
+                  )
+                      : Padding(
+                    padding: const EdgeInsets.only(left: 5),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          but1 = true;
+                        });
+                      },
+                      child: Icon(
+                        Icons.check_circle,
+                        color: khometextcolor2,
+                        size: 16,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 5, left: 5),
+                    child: Text(
+                      'Use This As Address Proof',
+                      style: TextStyle(
+                          fontFamily: 'Calibre',
+                          fontSize: 16,
+                          color: khometextcolor2),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          buttons: [
+            DialogButton(
+              onPressed: () {
+                setState(() {
+                  fileType = 'image';
+                });
+                filePickerimg(context);
+              },
+              color: khometextcolor1,
+              child: Text(
+                "ADD",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Colors.white, fontSize: 15, letterSpacing: 1.07),
+              ),
+            )
+          ]).show();
+    }
+
     final pHeight = MediaQuery.of(context).size.height;
     final pWidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -141,70 +286,71 @@ class _AddDocumentsState extends State<AddDocuments> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            'ADD IMAGE',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontFamily: 'Calibre',
-                                fontSize: pHeight * 0.022),
-                          ),
-                          Icon(
-                            Icons.info,
-                            color: Colors.black.withOpacity(0.6),
-                            size: pHeight * 0.02,
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: pHeight * 0.005,
-                      ),
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
                       Text(
-                        'Make sure your id proof should not be blur.',
+                        'ADD IMAGE',
                         style: TextStyle(
-                            color: kTextColor,
+                            color: Colors.black,
                             fontFamily: 'Calibre',
-                            fontSize: pHeight * 0.02),
+                            fontSize: pHeight * 0.022),
                       ),
-                      SizedBox(
-                        height: pHeight * 0.008,
+                      Icon(
+                        Icons.info,
+                        color: Colors.black.withOpacity(0.6),
+                        size: pHeight * 0.02,
                       ),
-                  InkWell(
-                    child: Container(
-                          height: pHeight * 0.1,
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(255, 225, 232, 1),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Icon(
-                                  Icons.cloud_upload,
-                                  color: kButtonColor,
-                                  size: pHeight * 0.05,
-                                ),
-                                SizedBox(
-                                  width: pWidth * 0.04,
-                                ),
-                                Text(
-                                  'Upload Here',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Calibre',
-                                      fontSize: pHeight * 0.022),
-                                ),
-                              ],
-                            ),
+                    ],
+                  ),
+                  SizedBox(
+                    height: pHeight * 0.005,
+                  ),
+                  Text(
+                    'Make sure your id proof should not be blur.',
+                    style: TextStyle(
+                        color: kTextColor,
+                        fontFamily: 'Calibre',
+                        fontSize: pHeight * 0.02),
+                  ),
+                  SizedBox(
+                    height: pHeight * 0.008,
+
+                    child : InkWell(
+                      onTap: () {
+                        _onAlertWithCustomContentPressed(context);
+                      },
+                      child: Container(
+                        height: pHeight * 0.1,
+                        decoration: BoxDecoration(
+                          color: Color.fromRGBO(255, 225, 232, 1),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Center(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Icon(
+                                Icons.cloud_upload,
+                                color: kButtonColor,
+                                size: pHeight * 0.05,
+                              ),
+                              SizedBox(
+                                width: pWidth * 0.04,
+                              ),
+                              Text(
+                                'Upload Here',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontFamily: 'Calibre',
+                                    fontSize: pHeight * 0.022),
+                              ),
+                            ],
                           ),
                         ),
-                    onTap: (){
+                      ),
 
-                    },
-                  ),
+                    ),),
 
                     ],
                   ),
@@ -256,32 +402,66 @@ class _AddDocumentsState extends State<AddDocuments> {
                       SizedBox(
                         height: pHeight * 0.008,
                       ),
-                      Container(
-                        height: pHeight * 0.2,
-                        decoration: BoxDecoration(
-                          color: Color.fromRGBO(255, 225, 232, 1),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: Center(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Icon(
-                                Icons.cloud_upload,
-                                color: kButtonColor,
-                                size: pHeight * 0.05,
+                      InkWell(
+                        onTap: () {
+                          Alert(
+                              context: context,
+                              title: "ADD YOUR VIDEO",
+                              content: Column(
+                                children: <Widget>[
+                                  Container(
+                                    width: pWidth,
+                                    height: pHeight * 0.45,
+                                  ),
+                                ],
                               ),
-                              SizedBox(
-                                width: pWidth * 0.04,
-                              ),
-                              Text(
-                                'Upload Here',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: 'Calibre',
-                                    fontSize: pHeight * 0.022),
-                              ),
-                            ],
+                              buttons: [
+                                DialogButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      fileType = 'video';
+                                    });
+                                    filePickervid(context);
+                                  },
+                                  color: khometextcolor1,
+                                  child: Text(
+                                    "ADD VIDEO",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        letterSpacing: 1.07),
+                                  ),
+                                )
+                              ]).show();
+                        },
+                        child: Container(
+                          height: pHeight * 0.2,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(255, 225, 232, 1),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.cloud_upload,
+                                  color: kButtonColor,
+                                  size: pHeight * 0.05,
+                                ),
+                                SizedBox(
+                                  width: pWidth * 0.04,
+                                ),
+                                Text(
+                                  'Upload Here',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'Calibre',
+                                      fontSize: pHeight * 0.022),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),
@@ -305,8 +485,18 @@ class _AddDocumentsState extends State<AddDocuments> {
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
-                        builder: (context) =>
-                            AddBankDetails('abcd', 'efgh', 'ijkl',widget.address,widget.pin,widget.state,widget.country,widget.phonenumber,widget.otp,widget.email,widget.name),
+                        builder: (context) => AddBankDetails(
+                            'abcd',
+                            'efgh',
+                            'ijkl',
+                            widget.address,
+                            widget.pin,
+                            widget.state,
+                            widget.country,
+                            widget.phonenumber,
+                            widget.otp,
+                            widget.email,
+                            widget.name),
                       ),
                     );
                   },
