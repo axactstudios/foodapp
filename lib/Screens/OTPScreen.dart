@@ -1,4 +1,7 @@
+import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
+import 'package:foodapp/Screens/navbar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +13,9 @@ import 'package:otp_text_field/style.dart';
 import 'home.dart';
 
 class OTPScreen extends StatefulWidget {
-  String phoneNumber;String parent;
-  OTPScreen(this.phoneNumber,this .parent);
+  String phoneNumber;
+  String parent;
+  OTPScreen(this.phoneNumber, this.parent);
   @override
   _OTPScreenState createState() => _OTPScreenState();
 }
@@ -19,11 +23,45 @@ class OTPScreen extends StatefulWidget {
 TextEditingController te = new TextEditingController();
 
 class _OTPScreenState extends State<OTPScreen> {
+  String message = '';
+
+  Future<String> getUID() async {
+    HttpClient httpClient = new HttpClient();
+    final String apiUrl =
+        "https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/users/${widget.phoneNumber}";
+//  final  response =
+//      await http.post(apiUrl, body: {"phoneNumber": number}).catchError((e) {
+//    print(e);
+//  });
+//  print(response.body.toString());
+//  if (response.statusCode != null) {
+//    final String responseString = response.body;
+//    return otpModelFromJson(responseString);
+//  } else {
+//    return null;
+//  }
+    HttpClientRequest request = await httpClient.getUrl(Uri.parse(apiUrl));
+    request.headers.set('content-type', 'application/json');
+    HttpClientResponse response = await request.close();
+    response.transform(utf8.decoder).listen((contents) {
+      print(contents);
+      message = contents;
+      print(message);
+    });
+    httpClient.close();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getUID();
+  }
+
   @override
   Widget build(BuildContext context) {
     final pHeight = MediaQuery.of(context).size.height;
     final pWidth = MediaQuery.of(context).size.width;
-     String otp;
+    String otp;
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -77,62 +115,54 @@ class _OTPScreenState extends State<OTPScreen> {
                 fieldStyle: FieldStyle.box,
                 onCompleted: (pin) {
                   print("Completed: " + pin);
-                  otp=pin;
-
+                  otp = pin;
                 },
               ),
               SizedBox(
                 height: pHeight * 0.05,
               ),
-              InkWell
-                  (
-
-                  onTap: () {
-                    if(widget.parent=='register'){
+              InkWell(
+                onTap: () {
+                  if (message == '{"message":"user Does not exists"}') {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            BasicDetails(
-                                widget.phoneNumber, otp
-                            ),
+                            BasicDetails(widget.phoneNumber, otp),
+                      ),
+                    );
+                  } else {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Navbar(),
                       ),
                     );
                   }
-                else{
-              Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-              builder: (context) =>
-              Home(),
-                    ),
-                    );
-              }
-                  },
-
-                  child: Container(
-                    width: pWidth * 0.7,
-                    height: pHeight * 0.05,
-                    decoration: BoxDecoration(
-                      color: kButtonColor,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Center(
-                      child:(widget.parent=='register')? Text(
-                  'Register here',
-                  style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Calibre',
-                  fontSize: pHeight * 0.022),
-                  ):Text('Login',style:TextStyle(color:Colors.white,fontFamily:'Calibre',fontSize:pHeight*0.022 ))
-
-                    ),
+                },
+                child: Container(
+                  width: pWidth * 0.7,
+                  height: pHeight * 0.05,
+                  decoration: BoxDecoration(
+                    color: kButtonColor,
+                    borderRadius: BorderRadius.circular(4),
                   ),
+                  child: Center(
+                      child: (widget.parent == 'register')
+                          ? Text(
+                              'Register here',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Calibre',
+                                  fontSize: pHeight * 0.022),
+                            )
+                          : Text('Login',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontFamily: 'Calibre',
+                                  fontSize: pHeight * 0.022))),
                 ),
-
-
-
-
+              ),
               SizedBox(
                 height: pHeight * 0.05,
               ),
@@ -158,12 +188,10 @@ class _OTPScreenState extends State<OTPScreen> {
                   ),
                 ],
               )
-
-
-],
-),
-),
-),
-);
-}
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
