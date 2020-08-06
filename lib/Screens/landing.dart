@@ -20,7 +20,7 @@ class _LandingState extends State<Landing> {
     phone = (prefs.getString('phone') ?? "");
     if (phone == "") {
       Navigator.pushNamedAndRemoveUntil(
-          context, '/login', ModalRoute.withName('/login'));
+          context, '/intro', ModalRoute.withName('/intro'));
     } else {
       Navigator.pushNamedAndRemoveUntil(
           context, '/home', ModalRoute.withName('/home'));
