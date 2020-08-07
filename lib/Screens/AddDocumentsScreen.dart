@@ -11,6 +11,8 @@ import '../Classes/Constants.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:path/path.dart' as p;
 import 'package:flutter/services.dart';
+import 'package:flick_video_player/flick_video_player.dart';
+import 'package:video_player/video_player.dart';
 
 class AddDocuments extends StatefulWidget {
   String address, pin, state, country, phonenumber, otp, email, name;
@@ -19,19 +21,22 @@ class AddDocuments extends StatefulWidget {
   @override
   _AddDocumentsState createState() => _AddDocumentsState();
 }
-File selectedFile;
-bool isFileUploading = false;
-String poolId;
-String awsFolderPath;
-String bucketName;
-final TextEditingController _textController1 = new TextEditingController();
-final TextEditingController _textController2 = new TextEditingController();
+
+File fileProfilePhoto;
+File fileIdPhoto;
+File fileKitchenVideo;
+File fileVideoDone;
+
+
 
 
 class _AddDocumentsState extends State<AddDocuments> {
   bool but1 = false;
   String fileType = '';
   File file;
+  File fileProfilePhoto;
+  File fileIdPhoto;
+  File fileKitchenVideo;
   String fileName = '';
   String operationText = '';
   bool isUploaded = true;
@@ -40,123 +45,41 @@ class _AddDocumentsState extends State<AddDocuments> {
   Future filePickerimg(BuildContext context) async {
 
     if (fileType == 'image') {
-      file = await FilePicker.getFile(type: FileType.image);
+      fileProfilePhoto = await FilePicker.getFile(type: FileType.image);
       setState(() {
-        fileName = p.basename(file.path);
+        fileName = p.basename(fileProfilePhoto.path);
       });
-
-
-        print(fileName);
+      print(fileName);
     }
   }
+  Future filePickerid(BuildContext context) async {
 
-  Future filePickervid(BuildContext context) async {
-    if (fileType == 'video') {
-      file = await FilePicker.getFile(type: FileType.video);
+    if (fileType == 'image') {
+      fileIdPhoto = await FilePicker.getFile(type: FileType.image);
       setState(() {
-        fileName = p.basename(file.path);
+        fileName = p.basename(fileIdPhoto.path);
       });
       print(fileName);
     }
   }
 
-
+  Future filePickervid(BuildContext context) async {
+    if (fileType == 'video') {
+      fileKitchenVideo = await FilePicker.getFile(type: FileType.video);
+      _controller = VideoPlayerController.file(fileKitchenVideo)
+        ..initialize();
+      setState(() {
+        fileName = p.basename(fileKitchenVideo.path);
+      });
+      print(fileName);
+    }
+  }
+  VideoPlayerController _controller;
   @override
-  void initState() {
-    super.initState();
-    readEnv();
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
-  void readEnv() async {
-    final str = await rootBundle.loadString(".env");
-    if (str.isNotEmpty) {
-      final decoded = jsonDecode(str);
-      poolId = decoded["poolId"];
-      awsFolderPath = decoded["awsFolderPath"];
-      bucketName = decoded["bucketName"];
-    }
-  }
-
-  Future<String> _uploadImage(File file, int number,
-      {String extension = 'jpg'}) async {
-
-    String result;
-
-    if (result == null) {
-      // generating file name
-      String fileName =
-          "$number$extension\_${DateTime.now().millisecondsSinceEpoch}.$extension";
-
-      AwsS3 awsS3 = AwsS3(
-          awsFolderPath: awsFolderPath,
-          file: selectedFile,
-          fileNameWithExt: fileName,
-          poolId: poolId,
-          region: Regions.AP_SOUTHEAST_2,
-          bucketName: bucketName);
-
-      setState(() => isFileUploading = true);
-      displayUploadDialog(awsS3);
-      try {
-        try {
-          result = await awsS3.uploadFile;
-          debugPrint("Result :'$result'.");
-        } on PlatformException {
-          debugPrint("Result :'$result'.");
-        }
-      } on PlatformException catch (e) {
-        debugPrint("Failed :'${e.message}'.");
-      }
-    }
-    Navigator.of(context).pop();
-    return result;
-  }
-
-  Future displayUploadDialog(AwsS3 awsS3) {
-    return showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => StreamBuilder(
-        stream: awsS3.getUploadStatus,
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
-          return buildFileUploadDialog(snapshot, context);
-        },
-      ),
-    );
-  }
-
-  AlertDialog buildFileUploadDialog(
-      AsyncSnapshot snapshot, BuildContext context) {
-    return AlertDialog(
-      title: Container(
-        padding: EdgeInsets.all(6),
-        child: LinearProgressIndicator(
-          value: (snapshot.data != null) ? snapshot.data / 100 : 0,
-          valueColor:
-          AlwaysStoppedAnimation<Color>(Theme.of(context).primaryColorDark),
-        ),
-      ),
-      content: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 6),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(child: Text('Uploading...')),
-            Text("${snapshot.data ?? 0}%"),
-          ],
-        ),
-      ),
-    );
-  }
-  Future<void> submitMessage() async {
-    await _uploadImage(selectedFile, 1);
-
-    debugPrint("Subject: " + _textController1.text);
-    debugPrint("Message: " + _textController2.text);
-  }
-
-
-
-
 
   @override
   final Items = ['Aadhar Card', 'Voter Id Card', 'Pan Card', 'Others'];
@@ -202,43 +125,49 @@ class _AddDocumentsState extends State<AddDocuments> {
                   return null;
                 },
               ),
+              (fileIdPhoto == null)
+                  ?
               Container(
                 height: 153,
                 width: 234,
+              )
+              :
+              (
+              Image.file(fileIdPhoto)
               ),
               Row(
                 children: <Widget>[
                   but1
                       ? Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                but1 = false;
-                              });
-                            },
-                            child: Icon(
-                              Icons.check_circle,
-                              color: khometextcolor1,
-                              size: 16,
-                            ),
-                          ),
-                        )
+                    padding: const EdgeInsets.only(left: 5),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          but1 = false;
+                        });
+                      },
+                      child: Icon(
+                        Icons.check_circle,
+                        color: khometextcolor1,
+                        size: 16,
+                      ),
+                    ),
+                  )
                       : Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                but1 = true;
-                              });
-                            },
-                            child: Icon(
-                              Icons.check_circle,
-                              color: khometextcolor2,
-                              size: 16,
-                            ),
-                          ),
-                        ),
+                    padding: const EdgeInsets.only(left: 5),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          but1 = true;
+                        });
+                      },
+                      child: Icon(
+                        Icons.check_circle,
+                        color: khometextcolor2,
+                        size: 16,
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5, left: 5),
                     child: Text(
@@ -259,7 +188,7 @@ class _AddDocumentsState extends State<AddDocuments> {
                 setState(() {
                   fileType = 'image';
                 });
-                filePickerimg(context);
+                filePickerid(context);
               },
               color: khometextcolor1,
               child: Text(
@@ -354,6 +283,9 @@ class _AddDocumentsState extends State<AddDocuments> {
                     ),
                   ),
                 ),
+
+                (fileProfilePhoto == null)
+                    ?
                 InkWell(
                   onTap: () {
                     setState(() {
@@ -376,6 +308,12 @@ class _AddDocumentsState extends State<AddDocuments> {
                       ),
                     ),
                   ),
+                )
+                    :
+                (
+                    Image.file(fileProfilePhoto,
+                      height: pHeight * 0.12,
+                      width: pHeight * 0.12)
                 ),
                 SizedBox(
                   height: pHeight * 0.015,
@@ -431,6 +369,8 @@ class _AddDocumentsState extends State<AddDocuments> {
                             fontFamily: 'Calibre',
                             fontSize: pHeight * 0.02),
                       ),
+                      (fileIdPhoto == null)
+                      ?
                       SizedBox(
                         height: pHeight * 0.08,
 
@@ -468,6 +408,12 @@ class _AddDocumentsState extends State<AddDocuments> {
                             ),
                           ),
                         ),
+                      )
+                          :
+                      (
+                      Image.file(fileIdPhoto,
+                        height: pHeight * 0.2,
+                        width: pWidth)
                       ),
                     ],
                   ),
@@ -519,6 +465,8 @@ class _AddDocumentsState extends State<AddDocuments> {
                       SizedBox(
                         height: pHeight * 0.008,
                       ),
+                      (fileKitchenVideo == null)
+                      ?
                       InkWell(
                         onTap: () {
                           Alert(
@@ -581,7 +529,15 @@ class _AddDocumentsState extends State<AddDocuments> {
                             ),
                           ),
                         ),
+                      )
+                      :
+                    Container(
+                      width: pWidth,
+                      height: pHeight * 0.25,
+                      child: (
+                      VideoPlayer(_controller)
                       ),
+                    ),
                     ],
                   ),
                 ),
