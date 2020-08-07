@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/navbar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 
 
@@ -247,8 +248,18 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                    final String accountNumber=accountController.text;
                    final String ifsccode=ifscController.text;
                    await sendDetails(bankname, accountNumber, ifsccode, profilephotourl, aadharurl, videourl, address, pin, state, country, phonenumber, otp, email);
+                   Fluttertoast.showToast(
+                       msg: "Registration Successful",
+                       toastLength: Toast.LENGTH_SHORT,
+                       gravity: ToastGravity.CENTER,
+                       timeInSecForIosWeb: 1,
+                       backgroundColor: Colors.transparent,
+                       textColor: Colors.black12,
+                       fontSize: 16.0
+                   );
                     Navigator.push(
                       context,
+
                       MaterialPageRoute(
                         builder: (context) => Navbar(),
                       ),

@@ -9,6 +9,7 @@ import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/BasicDetailsScreen.dart';
 import 'package:otp_text_field/otp_field.dart';
 import 'package:otp_text_field/style.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import 'home.dart';
 

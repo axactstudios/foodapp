@@ -13,6 +13,8 @@ import 'package:path/path.dart' as p;
 import 'package:flutter/services.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:video_player/video_player.dart';
+import 'package:simple_s3/simple_s3.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AddDocuments extends StatefulWidget {
   String address, pin, state, country, phonenumber, otp, email, name;
@@ -184,7 +186,7 @@ class _AddDocumentsState extends State<AddDocuments> {
           ),
           buttons: [
             DialogButton(
-              onPressed: () {
+              onPressed: () async{
                 setState(() {
                   fileType = 'image';
                 });
@@ -554,7 +556,31 @@ class _AddDocumentsState extends State<AddDocuments> {
                   height: pHeight * 0.01,
                 ),
                 InkWell(
-                  onTap: () {
+                  onTap: () async{
+                    String urlProfile = await SimpleS3.uploadFile(
+                        file,
+                        bucketName,
+                        poolID,
+                        AWSRegions.apSouth1,
+                    );
+                    String urlID = await SimpleS3.uploadFile(
+                      file,
+                      bucketName,
+                      poolID,
+                      AWSRegions.apSouth1,
+                    );
+                    String urlVideo = await SimpleS3.uploadFile(
+                        file,
+                        bucketName,
+                        poolID,
+                        AWSRegions.apSouth1,
+                    );
+                    saveURLDetails() async {
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      prefs.setString('profile', urlProfile);
+                      prefs.setString('id', urlID);
+                      prefs.setString('video', urlVideo);
+                    }
                     Navigator.push(
                       context,
                       CupertinoPageRoute(
