@@ -557,7 +557,7 @@ class _AddDocumentsState extends State<AddDocuments> {
                 ),
                 InkWell(
                   onTap: () async{
-                    String urlProfile = await SimpleS3.uploadFile(
+                    /*String urlProfile = await SimpleS3.uploadFile(
                         file,
                         bucketName,
                         poolID,
@@ -575,12 +575,12 @@ class _AddDocumentsState extends State<AddDocuments> {
                         poolID,
                         AWSRegions.apSouth1,
                     );
-                    saveURLDetails() async {
+                    saveURLDetails()
                       SharedPreferences prefs = await SharedPreferences.getInstance();
                       prefs.setString('profile', urlProfile);
                       prefs.setString('id', urlID);
-                      prefs.setString('video', urlVideo);
-                    }
+                      prefs.setString('video', urlVideo);*/
+
                     Navigator.push(
                       context,
                       CupertinoPageRoute(

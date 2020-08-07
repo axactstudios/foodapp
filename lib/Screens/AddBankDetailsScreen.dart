@@ -251,8 +251,8 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                    Fluttertoast.showToast(
                        msg: "Registration Successful",
                        toastLength: Toast.LENGTH_SHORT,
-                       gravity: ToastGravity.CENTER,
-                       timeInSecForIosWeb: 1,
+                       gravity: ToastGravity.BOTTOM,
+
                        backgroundColor: Colors.transparent,
                        textColor: Colors.black12,
                        fontSize: 16.0
