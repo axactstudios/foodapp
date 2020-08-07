@@ -248,6 +248,8 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                    final String accountNumber=accountController.text;
                    final String ifsccode=ifscController.text;
                    await sendDetails(bankname, accountNumber, ifsccode, profilephotourl, aadharurl, videourl, address, pin, state, country, phonenumber, otp, email);
+                   var preferences =await SharedPreferences.getInstance();
+                   preferences.setString('phoneNumber',widget.phonenumber);
                    Fluttertoast.showToast(
                        msg: "Registration Successful",
                        toastLength: Toast.LENGTH_SHORT,
