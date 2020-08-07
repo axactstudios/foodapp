@@ -63,7 +63,7 @@ class _AdditemState extends State<Additem> {
   int start1 = 0;
   int start2 = 0;
   String fileType = '';
-  File file;
+  File fileDish;
   String fileName = '';
   String operationText = '';
   bool isUploaded = true;
@@ -71,9 +71,9 @@ class _AdditemState extends State<Additem> {
 
   Future filePickerimg(BuildContext context) async {
     if (fileType == 'image') {
-      file = await FilePicker.getFile(type: FileType.image);
+      fileDish = await FilePicker.getFile(type: FileType.image);
       setState(() {
-        fileName = p.basename(file.path);
+        fileName = p.basename(fileDish.path);
       });
 
       print(fileName);
@@ -774,6 +774,8 @@ class _AdditemState extends State<Additem> {
                           fontFamily: 'Calibre',
                           fontSize: pHeight * 0.02),
                     ),
+                    (fileDish == null)
+                        ?
                     SizedBox(
                       height: pHeight * 0.08,
                       child: InkWell(
@@ -810,6 +812,10 @@ class _AdditemState extends State<Additem> {
                           ),
                         ),
                       ),
+                    )
+                        :
+                    (
+                    Image.file(fileDish)
                     ),
                   ],
                 ),

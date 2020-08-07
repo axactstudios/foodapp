@@ -29,6 +29,9 @@ File fileIdPhoto;
 File fileKitchenVideo;
 File fileVideoDone;
 
+
+
+
 class _AddDocumentsState extends State<AddDocuments> {
   bool but1 = false;
   String fileType = '';
@@ -42,6 +45,7 @@ class _AddDocumentsState extends State<AddDocuments> {
   String result = '';
 
   Future filePickerimg(BuildContext context) async {
+
     if (fileType == 'image') {
       fileProfilePhoto = await FilePicker.getFile(type: FileType.image);
       setState(() {
@@ -50,8 +54,8 @@ class _AddDocumentsState extends State<AddDocuments> {
       print(fileName);
     }
   }
-
   Future filePickerid(BuildContext context) async {
+
     if (fileType == 'image') {
       fileIdPhoto = await FilePicker.getFile(type: FileType.image);
       setState(() {
@@ -64,14 +68,14 @@ class _AddDocumentsState extends State<AddDocuments> {
   Future filePickervid(BuildContext context) async {
     if (fileType == 'video') {
       fileKitchenVideo = await FilePicker.getFile(type: FileType.video);
-      _controller = VideoPlayerController.file(fileKitchenVideo)..initialize();
+      _controller = VideoPlayerController.file(fileKitchenVideo)
+        ..initialize();
       setState(() {
         fileName = p.basename(fileKitchenVideo.path);
       });
       print(fileName);
     }
   }
-
   VideoPlayerController _controller;
   @override
   void dispose() {
@@ -124,44 +128,48 @@ class _AddDocumentsState extends State<AddDocuments> {
                 },
               ),
               (fileIdPhoto == null)
-                  ? Container(
-                      height: 153,
-                      width: 234,
-                    )
-                  : (Image.file(fileIdPhoto)),
+                  ?
+              Container(
+                height: 153,
+                width: 234,
+              )
+              :
+              (
+              Image.file(fileIdPhoto)
+              ),
               Row(
                 children: <Widget>[
                   but1
                       ? Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                but1 = false;
-                              });
-                            },
-                            child: Icon(
-                              Icons.check_circle,
-                              color: khometextcolor1,
-                              size: 16,
-                            ),
-                          ),
-                        )
+                    padding: const EdgeInsets.only(left: 5),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          but1 = false;
+                        });
+                      },
+                      child: Icon(
+                        Icons.check_circle,
+                        color: khometextcolor1,
+                        size: 16,
+                      ),
+                    ),
+                  )
                       : Padding(
-                          padding: const EdgeInsets.only(left: 5),
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                but1 = true;
-                              });
-                            },
-                            child: Icon(
-                              Icons.check_circle,
-                              color: khometextcolor2,
-                              size: 16,
-                            ),
-                          ),
-                        ),
+                    padding: const EdgeInsets.only(left: 5),
+                    child: InkWell(
+                      onTap: () {
+                        setState(() {
+                          but1 = true;
+                        });
+                      },
+                      child: Icon(
+                        Icons.check_circle,
+                        color: khometextcolor2,
+                        size: 16,
+                      ),
+                    ),
+                  ),
                   Padding(
                     padding: const EdgeInsets.only(top: 5, left: 5),
                     child: Text(
@@ -178,7 +186,7 @@ class _AddDocumentsState extends State<AddDocuments> {
           ),
           buttons: [
             DialogButton(
-              onPressed: () async {
+              onPressed: () async{
                 setState(() {
                   fileType = 'image';
                 });
@@ -277,335 +285,336 @@ class _AddDocumentsState extends State<AddDocuments> {
                     ),
                   ),
                 ),
-                SingleChildScrollView(
+
+                (fileProfilePhoto == null)
+                    ?
+                InkWell(
+                  onTap: () {
+                    setState(() {
+                      fileType = 'image';
+                    });
+                    filePickerimg(context);
+                  },
+                  child: Container(
+                    height: pHeight * 0.12,
+                    width: pHeight * 0.12,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(255, 225, 232, 1),
+                      borderRadius: BorderRadius.circular(pHeight * 0.12),
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.add,
+                        color: kButtonColor,
+                        size: pHeight * 0.035,
+                      ),
+                    ),
+                  ),
+                )
+                    :
+                (
+                    Image.file(fileProfilePhoto,
+                      height: pHeight * 0.12,
+                      width: pHeight * 0.12)
+                ),
+                SizedBox(
+                  height: pHeight * 0.015,
+                ),
+                Text(
+                  'ADD PROFILE PHOTO',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'Calibre',
+                      fontSize: pHeight * 0.022),
+                ),
+                SizedBox(
+                  height: pHeight * 0.01,
+                ),
+                SizedBox(
+                  width: pWidth * 0.85,
+                  child: Divider(
+                    color: kTextColor,
+                  ),
+                ),
+                SizedBox(
+                  height: pHeight * 0.01,
+                ),
+                Container(
+                  width: pWidth * 0.85,
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      (fileProfilePhoto == null)
-                          ? InkWell(
-                              onTap: () {
-                                setState(() {
-                                  fileType = 'image';
-                                });
-                                filePickerimg(context);
-                              },
-                              child: Container(
-                                height: pHeight * 0.12,
-                                width: pHeight * 0.12,
-                                decoration: BoxDecoration(
-                                  color: Color.fromRGBO(255, 225, 232, 1),
-                                  borderRadius:
-                                      BorderRadius.circular(pHeight * 0.12),
-                                ),
-                                child: Center(
-                                  child: Icon(
-                                    Icons.add,
-                                    color: kButtonColor,
-                                    size: pHeight * 0.035,
-                                  ),
-                                ),
-                              ),
-                            )
-                          : (Image.file(fileProfilePhoto,
-                              height: pHeight * 0.12, width: pHeight * 0.12)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            'ADD IMAGE',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Calibre',
+                                fontSize: pHeight * 0.022),
+                          ),
+                          Icon(
+                            Icons.info,
+                            color: Colors.black.withOpacity(0.6),
+                            size: pHeight * 0.02,
+                          ),
+                        ],
+                      ),
                       SizedBox(
-                        height: pHeight * 0.015,
+                        height: pHeight * 0.005,
                       ),
                       Text(
-                        'ADD PROFILE PHOTO',
+                        'Make sure your id proof should not be blur.',
                         style: TextStyle(
-                            color: Colors.black,
+                            color: kTextColor,
                             fontFamily: 'Calibre',
-                            fontSize: pHeight * 0.022),
+                            fontSize: pHeight * 0.02),
                       ),
+                      (fileIdPhoto == null)
+                      ?
                       SizedBox(
-                        height: pHeight * 0.01,
-                      ),
-                      SizedBox(
-                        width: pWidth * 0.85,
-                        child: Divider(
-                          color: kTextColor,
-                        ),
-                      ),
-                      SizedBox(
-                        height: pHeight * 0.01,
-                      ),
-                      Container(
-                        width: pWidth * 0.85,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  'ADD IMAGE',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Calibre',
-                                      fontSize: pHeight * 0.022),
-                                ),
-                                Icon(
-                                  Icons.info,
-                                  color: Colors.black.withOpacity(0.6),
-                                  size: pHeight * 0.02,
-                                ),
-                              ],
+                        height: pHeight * 0.08,
+
+                        child: InkWell(
+                          onTap: () {
+                            _onAlertWithCustomContentPressed(context);
+                          },
+                          child: Container(
+                            height: pHeight * 0.1,
+                            decoration: BoxDecoration(
+                              color: Color.fromRGBO(255, 225, 232, 1),
+                              borderRadius: BorderRadius.circular(4),
                             ),
-                            SizedBox(
-                              height: pHeight * 0.005,
-                            ),
-                            Text(
-                              'Make sure your id proof should not be blur.',
-                              style: TextStyle(
-                                  color: kTextColor,
-                                  fontFamily: 'Calibre',
-                                  fontSize: pHeight * 0.02),
-                            ),
-                            (fileIdPhoto == null)
-                                ? SizedBox(
-                                    height: pHeight * 0.08,
-                                    child: InkWell(
-                                      onTap: () {
-                                        _onAlertWithCustomContentPressed(
-                                            context);
-                                      },
-                                      child: Container(
-                                        height: pHeight * 0.1,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              Color.fromRGBO(255, 225, 232, 1),
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                        child: Center(
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: <Widget>[
-                                              Icon(
-                                                Icons.cloud_upload,
-                                                color: kButtonColor,
-                                                size: pHeight * 0.05,
-                                              ),
-                                              SizedBox(
-                                                width: pWidth * 0.04,
-                                              ),
-                                              Text(
-                                                'Upload Here',
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontFamily: 'Calibre',
-                                                    fontSize: pHeight * 0.022),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : (Image.file(fileIdPhoto,
-                                    height: pHeight * 0.2, width: pWidth)),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: pHeight * 0.01,
-                      ),
-                      SizedBox(
-                        width: pWidth * 0.85,
-                        child: Divider(
-                          color: kTextColor,
-                        ),
-                      ),
-                      SizedBox(
-                        height: pHeight * 0.01,
-                      ),
-                      Container(
-                        width: pWidth * 0.85,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  'ADD KITCHEN VIDEO',
-                                  style: TextStyle(
-                                      color: Colors.black,
-                                      fontFamily: 'Calibre',
-                                      fontSize: pHeight * 0.022),
-                                ),
-                                Icon(
-                                  Icons.info,
-                                  color: Colors.black.withOpacity(0.6),
-                                  size: pHeight * 0.02,
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: pHeight * 0.005,
-                            ),
-                            Text(
-                              'File size should be 5MB max.',
-                              style: TextStyle(
-                                  color: kTextColor,
-                                  fontFamily: 'Calibre',
-                                  fontSize: pHeight * 0.02),
-                            ),
-                            SizedBox(
-                              height: pHeight * 0.008,
-                            ),
-                            (fileKitchenVideo == null)
-                                ? InkWell(
-                                    onTap: () {
-                                      Alert(
-                                          context: context,
-                                          title: "ADD YOUR VIDEO",
-                                          content: Column(
-                                            children: <Widget>[
-                                              Container(
-                                                width: pWidth,
-                                                height: pHeight * 0.45,
-                                              ),
-                                            ],
-                                          ),
-                                          buttons: [
-                                            DialogButton(
-                                              onPressed: () {
-                                                setState(() {
-                                                  fileType = 'video';
-                                                });
-                                                filePickervid(context);
-                                              },
-                                              color: khometextcolor1,
-                                              child: Text(
-                                                "ADD VIDEO",
-                                                textAlign: TextAlign.center,
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 15,
-                                                    letterSpacing: 1.07),
-                                              ),
-                                            )
-                                          ]).show();
-                                    },
-                                    child: Container(
-                                      height: pHeight * 0.2,
-                                      decoration: BoxDecoration(
-                                        color: Color.fromRGBO(255, 225, 232, 1),
-                                        borderRadius: BorderRadius.circular(4),
-                                      ),
-                                      child: Center(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: <Widget>[
-                                            Icon(
-                                              Icons.cloud_upload,
-                                              color: kButtonColor,
-                                              size: pHeight * 0.05,
-                                            ),
-                                            SizedBox(
-                                              width: pWidth * 0.04,
-                                            ),
-                                            Text(
-                                              'Upload Here',
-                                              style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontFamily: 'Calibre',
-                                                  fontSize: pHeight * 0.022),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                : Container(
-                                    width: pWidth,
-                                    height: pHeight * 0.25,
-                                    child: (VideoPlayer(_controller)),
+                            child: Center(
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Icon(
+                                    Icons.cloud_upload,
+                                    color: kButtonColor,
+                                    size: pHeight * 0.05,
                                   ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        height: pHeight * 0.01,
-                      ),
-                      SizedBox(
-                        width: pWidth,
-                        child: Divider(
-                          color: kTextColor,
-                        ),
-                      ),
-                      SizedBox(
-                        height: pHeight * 0.01,
-                      ),
-                      InkWell(
-                        onTap: ()
-//                  async{
-//                    String urlProfile = await SimpleS3.uploadFile(
-//                        file,
-//                        bucketName,
-//                        poolID,
-//                        AWSRegions.apSouth1,
-//                    );
-//                    String urlID = await SimpleS3.uploadFile(
-//                      file,
-//                      bucketName,
-//                      poolID,
-//                      AWSRegions.apSouth1,
-//                    );
-//                    String urlVideo = await SimpleS3.uploadFile(
-//                        file,
-//                        //bucketName,
-//                        //poolID,
-//                        AWSRegions.apSouth1,
-//                    );
-//                    saveURLDetails() async {
-//                      SharedPreferences prefs = await SharedPreferences.getInstance();
-//                      prefs.setString('profile', urlProfile);
-//                      prefs.setString('id', urlID);
-//                      prefs.setString('video', urlVideo);
-//                    }
-                            {
-                          Navigator.push(
-                            context,
-                            CupertinoPageRoute(
-                              builder: (context) => AddBankDetails(
-                                  'abcd',
-                                  'efgh',
-                                  'ijkl',
-                                  widget.address,
-                                  widget.pin,
-                                  widget.state,
-                                  widget.country,
-                                  widget.phonenumber,
-                                  widget.otp,
-                                  widget.email,
-                                  widget.name),
+                                  SizedBox(
+                                    width: pWidth * 0.04,
+                                  ),
+                                  Text(
+                                    'Upload Here',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontFamily: 'Calibre',
+                                        fontSize: pHeight * 0.022),
+                                  ),
+                                ],
+                              ),
                             ),
-                          );
+                          ),
+                        ),
+                      )
+                          :
+                      (
+                      Image.file(fileIdPhoto,
+                        height: pHeight * 0.2,
+                        width: pWidth)
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: pHeight * 0.01,
+                ),
+                SizedBox(
+                  width: pWidth * 0.85,
+                  child: Divider(
+                    color: kTextColor,
+                  ),
+                ),
+                SizedBox(
+                  height: pHeight * 0.01,
+                ),
+                Container(
+                  width: pWidth * 0.85,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            'ADD KITCHEN VIDEO',
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontFamily: 'Calibre',
+                                fontSize: pHeight * 0.022),
+                          ),
+                          Icon(
+                            Icons.info,
+                            color: Colors.black.withOpacity(0.6),
+                            size: pHeight * 0.02,
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: pHeight * 0.005,
+                      ),
+                      Text(
+                        'File size should be 5MB max.',
+                        style: TextStyle(
+                            color: kTextColor,
+                            fontFamily: 'Calibre',
+                            fontSize: pHeight * 0.02),
+                      ),
+                      SizedBox(
+                        height: pHeight * 0.008,
+                      ),
+                      (fileKitchenVideo == null)
+                      ?
+                      InkWell(
+                        onTap: () {
+                          Alert(
+                              context: context,
+                              title: "ADD YOUR VIDEO",
+                              content: Column(
+                                children: <Widget>[
+                                  Container(
+                                    width: pWidth,
+                                    height: pHeight * 0.45,
+                                  ),
+                                ],
+                              ),
+                              buttons: [
+                                DialogButton(
+                                  onPressed: () {
+                                    setState(() {
+                                      fileType = 'video';
+                                    });
+                                    filePickervid(context);
+                                  },
+                                  color: khometextcolor1,
+                                  child: Text(
+                                    "ADD VIDEO",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 15,
+                                        letterSpacing: 1.07),
+                                  ),
+                                )
+                              ]).show();
                         },
                         child: Container(
-                          width: pWidth * 0.6,
-                          height: pHeight * 0.05,
+                          height: pHeight * 0.2,
                           decoration: BoxDecoration(
-                            color: kButtonColor,
+                            color: Color.fromRGBO(255, 225, 232, 1),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Center(
-                            child: Text(
-                              'NEXT',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontFamily: 'Calibre',
-                                  fontSize: pHeight * 0.022),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.cloud_upload,
+                                  color: kButtonColor,
+                                  size: pHeight * 0.05,
+                                ),
+                                SizedBox(
+                                  width: pWidth * 0.04,
+                                ),
+                                Text(
+                                  'Upload Here',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'Calibre',
+                                      fontSize: pHeight * 0.022),
+                                ),
+                              ],
                             ),
                           ),
                         ),
+                      )
+                      :
+                    Container(
+                      width: pWidth,
+                      height: pHeight * 0.25,
+                      child: (
+                      VideoPlayer(_controller)
                       ),
+                    ),
                     ],
+                  ),
+                ),
+                SizedBox(
+                  height: pHeight * 0.01,
+                ),
+                SizedBox(
+                  width: pWidth,
+                  child: Divider(
+                    color: kTextColor,
+                  ),
+                ),
+                SizedBox(
+                  height: pHeight * 0.01,
+                ),
+                InkWell(
+                  onTap: () async{
+                    /*String urlProfile = await SimpleS3.uploadFile(
+                        file,
+                        bucketName,
+                        poolID,
+                        AWSRegions.apSouth1,
+                    );
+                    String urlID = await SimpleS3.uploadFile(
+                      file,
+                      bucketName,
+                      poolID,
+                      AWSRegions.apSouth1,
+                    );
+                    String urlVideo = await SimpleS3.uploadFile(
+                        file,
+                        bucketName,
+                        poolID,
+                        AWSRegions.apSouth1,
+                    );
+                    saveURLDetails()
+                      SharedPreferences prefs = await SharedPreferences.getInstance();
+                      prefs.setString('profile', urlProfile);
+                      prefs.setString('id', urlID);
+                      prefs.setString('video', urlVideo);*/
+
+                    Navigator.push(
+                      context,
+                      CupertinoPageRoute(
+                        builder: (context) => AddBankDetails(
+                            'abcd',
+                            'efgh',
+                            'ijkl',
+                            widget.address,
+                            widget.pin,
+                            widget.state,
+                            widget.country,
+                            widget.phonenumber,
+                            widget.otp,
+                            widget.email,
+                            widget.name),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: pWidth * 0.6,
+                    height: pHeight * 0.05,
+                    decoration: BoxDecoration(
+                      color: kButtonColor,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'NEXT',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontFamily: 'Calibre',
+                            fontSize: pHeight * 0.022),
+                      ),
+                    ),
                   ),
                 ),
               ],
