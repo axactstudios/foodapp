@@ -17,25 +17,40 @@ class List extends StatefulWidget {
 
 class _ListState extends State<List> {
   String message='';
-  Future<OfferingModel> getitem() async {
+  Map data;
+  List userdata;
 
-    HttpClient httpClient = new HttpClient();
-    final String apiUrl =
+  Future<String> getitem() async {
+
+   HttpClient httpClient = new HttpClient();
+   final String apiUrl =
         "https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/getUserOfferings/5cb84df7-4bb6-4dfa-a4f6-9651ba6fd414";
 
-    HttpClientRequest request = await httpClient.getUrl(Uri.parse(apiUrl));
+   HttpClientRequest request = await httpClient.getUrl(Uri.parse(apiUrl));
     request.headers.set('content-type', 'application/json');
-    HttpClientResponse response = await request.close();
-    response.transform(utf8.decoder).listen((contents) {
-      print(contents);
-      message = contents;
-      print(message);
-    });
+   HttpClientResponse response = await request.close();
+   response.transform(utf8.decoder).listen((contents) {
+     print(contents);
+     message = contents;
+     print(message);
+     setState(() {
+       userdata=data["data"];
+     });
+      print(userdata.toString());
+   });
     httpClient.close();
   }
+//  Future getitem() async{
+//    http.Response response = await http.get("https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/getUserOfferings/5cb84df7-4bb6-4dfa-a4f6-9651ba6fd414");
+//    data =json.decode(response.body);
+//    setState(() {
+//      userData =data["User"];
+//    });
+//    debugPrint(userData.toString());
+//  }
   @override
   void initState() {
-    // TODO: implement initState
+    super.initState();
     getitem();
   }
   @override

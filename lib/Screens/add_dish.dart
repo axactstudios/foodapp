@@ -5,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import '../Classes/Constants.dart';
 import '../Classes/Constants.dart';
 import 'package:path/path.dart' as p;
@@ -849,12 +850,20 @@ class _AdditemState extends State<Additem> {
                 ),
                 InkWell(
                   onTap: () async {
-                    final String quantity=servingntroller.text;
-                    final String price=priceController.text;
-                    final String productName=nameController.text;
-                    await additem(quantity,price,productName);},
+                    final String quantity = servingntroller.text;
+                    final String price = priceController.text;
+                    final String productName = nameController.text;
+                    await additem(quantity, price, productName);
+                    Fluttertoast.showToast(
+                        msg: "Your item is added successfully",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
 
-
+                        backgroundColor: Colors.transparent,
+                        textColor: Colors.black12,
+                        fontSize: 16.0
+                    );
+                  },
 
                   child: Container(
                     width: 250,

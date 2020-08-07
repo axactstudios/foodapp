@@ -141,7 +141,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 height: pHeight * 0.05,
               ),
               InkWell(
-                onTap: () {
+                onTap: ()async {
 
 
                   if (message == '{"message":"user Does not exists"}') {
@@ -154,6 +154,18 @@ class _OTPScreenState extends State<OTPScreen> {
                     );
                   } else {
                     login();
+                    var preferences=await SharedPreferences.getInstance();
+                    preferences.setString('phoneNumber',widget.phoneNumber);
+                    Fluttertoast.showToast(
+                        msg: "You are now logged in",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.BOTTOM,
+
+                        backgroundColor: Colors.transparent,
+                        textColor: Colors.black12,
+                        fontSize: 16.0
+                    );
+
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
