@@ -247,6 +247,7 @@ class _AddBankDetailsState extends State<AddBankDetails> {
                    final String accountNumber=accountController.text;
                    final String ifsccode=ifscController.text;
                    await sendDetails(bankname, accountNumber, ifsccode, profilephotourl, aadharurl, videourl, address, pin, state, country, phonenumber, otp, email);
+                   print(widget.otp);
                     Navigator.push(
                       context,
                       MaterialPageRoute(

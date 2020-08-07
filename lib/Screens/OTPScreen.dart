@@ -66,7 +66,7 @@ class _OTPScreenState extends State<OTPScreen> {
   Widget build(BuildContext context) {
     final pHeight = MediaQuery.of(context).size.height;
     final pWidth = MediaQuery.of(context).size.width;
-    String otp;
+ String otp;String code;
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -120,23 +120,35 @@ class _OTPScreenState extends State<OTPScreen> {
                 fieldStyle: FieldStyle.box,
                 onCompleted: (pin) {
                   print("Completed: " + pin);
-                  otp = pin;
-                  setState(() {
+//                  Navigator.pushReplacement(
+//                      context,
+//                      MaterialPageRoute(
+//                      builder: (context) =>
+//                      BasicDetails(widget.phoneNumber, pin),
+//                  ));
+                  this.setState(() {
+
+                     otp = pin;
                     print(otp);
-                  });
+                  final String code=otp;
+                  print(code);
+                 });
                 },
+
               ),
               SizedBox(
                 height: pHeight * 0.05,
               ),
               InkWell(
                 onTap: () {
+
+
                   if (message == '{"message":"user Does not exists"}') {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            BasicDetails(widget.phoneNumber, otp),
+                            BasicDetails(widget.phoneNumber, code),
                       ),
                     );
                   } else {
