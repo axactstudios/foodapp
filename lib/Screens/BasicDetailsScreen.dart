@@ -209,9 +209,11 @@ class _BasicDetailsState extends State<BasicDetails> {
                       CupertinoPageRoute(
                         builder: (context) => AddAddress(nameController.text,
                             emailController.text, widget.phoneNumber,widget.otp),
+
                       ),
                     );
-                  },
+                   print(widget.otp);
+                   print(widget.phoneNumber);},
                   child: Container(
                     width: pWidth * 0.6,
                     height: pHeight * 0.05,
