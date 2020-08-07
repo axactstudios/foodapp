@@ -1,17 +1,42 @@
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../Classes/Constants.dart';
-import 'package:file_picker/file_picker.dart';
+import '../Classes/Constants.dart';
 import 'package:path/path.dart' as p;
 
 class Additem extends StatefulWidget {
   @override
   _AdditemState createState() => _AdditemState();
 }
+Future<String>additem(String quantity,String price,String productName) async {
+  HttpClient httpClient = new HttpClient();
+  final String apiUrl="https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/addOffering";
+  Map map = {"phoneNumber":"+919718764559",
+    "quantity": quantity,
+    "pickupLocation": {
+      "Long": 343434,
+      "Lat": 232323
+    },
+    "price": price,
+    "productName": productName,
+    "userId": "5cb84df7-4bb6-4dfa-a4f6-9651ba6fd414"
+  };
 
+  HttpClientRequest request = await httpClient.postUrl(Uri.parse(apiUrl));
+  request.headers.set('content-type', 'application/json');
+  request.add(utf8.encode(json.encode(map)));
+  HttpClientResponse response = await request.close();
+  String reply = await response.transform(utf8.decoder).join();
+  httpClient.close();
+  print(reply);
+  return reply;
+
+}
 class _AdditemState extends State<Additem> {
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
@@ -823,14 +848,14 @@ class _AdditemState extends State<Additem> {
                   height: pHeight * 0.04,
                 ),
                 InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Additem(),
-                      ),
-                    );
-                  },
+                  onTap: () async {
+                    final String quantity=servingntroller.text;
+                    final String price=priceController.text;
+                    final String productName=nameController.text;
+                    await additem(quantity,price,productName);},
+
+
+
                   child: Container(
                     width: 250,
                     height: 50,
@@ -853,9 +878,7 @@ class _AdditemState extends State<Additem> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: pHeight * 0.03,
-                ),
+
               ],
             ),
           ),
