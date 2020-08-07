@@ -26,6 +26,8 @@ dependencies:
   uuid: ^2.0.4
   path: ^1.6.4
   aws_s3: ^0.1.1+hotfix.5
+  flick_video_player: ^0.1.1
+  video_player: ^0.10.11+2
 dev_dependencies:
   flutter_test:
     sdk: flutter
