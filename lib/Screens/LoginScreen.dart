@@ -7,6 +7,7 @@ import 'package:foodapp/Classes/Constants.dart';
 import 'package:foodapp/Screens/OTPScreen.dart';
 import 'package:foodapp/apimodels/otpmodel.dart';
 import 'package:http/http.dart' as http;
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
