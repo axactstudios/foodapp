@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'add_dish.dart';
 import '../Classes/Constants.dart';
-import '../Classes/Constants.dart';
 
 class Mykitchen extends StatefulWidget {
   @override
@@ -59,7 +58,14 @@ class _MykitchenState extends State<Mykitchen> {
               height: 20,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Additem(),
+                  ),
+                );
+              },
               child: Container(
                 width: 140,
                 height: 36,

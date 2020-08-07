@@ -1,8 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../Classes/Constants.dart';
-import '../Classes/Constants.dart';
+import 'package:file_picker/file_picker.dart';
+import 'package:path/path.dart' as p;
 
 class Additem extends StatefulWidget {
   @override
@@ -14,6 +17,11 @@ class _AdditemState extends State<Additem> {
   final nameController = TextEditingController();
   final priceController = TextEditingController();
   final servingntroller = TextEditingController();
+  final supplydateController = TextEditingController();
+  final OrderdateController = TextEditingController();
+  final LocationController = TextEditingController();
+  final DesciptionController = TextEditingController();
+
   final Items = ['Per Unit', 'Per Serve'];
   final units = ['gm', 'kg'];
   DateTime date = DateTime.now();
@@ -50,12 +58,95 @@ class _AdditemState extends State<Additem> {
   String dropdownValue4 = 'gm';
   bool but1 = false;
   bool but2 = false;
+  bool but3 = false;
+
   int start1 = 0;
   int start2 = 0;
+  String fileType = '';
+  File file;
+  String fileName = '';
+  String operationText = '';
+  bool isUploaded = true;
+  String result = '';
+
+  Future filePickerimg(BuildContext context) async {
+    if (fileType == 'image') {
+      file = await FilePicker.getFile(type: FileType.image);
+      setState(() {
+        fileName = p.basename(file.path);
+      });
+
+      print(fileName);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final pHeight = MediaQuery.of(context).size.height;
     final pWidth = MediaQuery.of(context).size.width;
+    void _settingModalBottomSheet(context) {
+      showModalBottomSheet(
+          context: context,
+          builder: (BuildContext bc) {
+            return Container(
+              child: new Wrap(
+                children: <Widget>[
+                  new Container(
+                    width: pWidth,
+                    height: 54,
+                    color: Color.fromRGBO(43, 80, 117, 1),
+                    child: ListTile(
+                      leading: Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: Text(
+                          'Upload Dish Images',
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontFamily: 'Calibre',
+                              fontSize: 15,
+                              letterSpacing: 1.07),
+                        ),
+                      ),
+                    ),
+                  ),
+                  new ListTile(
+                    leading: new Icon(
+                      Icons.photo,
+                      color: khometextcolor1,
+                    ),
+                    title: new Text('Gallery'),
+                    onTap: () {
+                      setState(() {
+                        fileType = 'image';
+                      });
+                      filePickerimg(context);
+                    },
+                  ),
+                  new ListTile(
+                    leading: new Icon(
+                      Icons.photo_camera,
+                      color: khometextcolor1,
+                    ),
+                    title: new Text('Camera'),
+                    onTap: () => {},
+                  ),
+                  new ListTile(
+                    leading: new Icon(
+                      Icons.search,
+                      color: khometextcolor1,
+                    ),
+                    title: new Text('Search Web'),
+                    onTap: () => {},
+                  ),
+                  SizedBox(
+                    height: pHeight * 0.01,
+                  ),
+                ],
+              ),
+            );
+          });
+    }
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
@@ -444,19 +535,18 @@ class _AdditemState extends State<Additem> {
                 Padding(
                   padding: const EdgeInsets.only(top: 10),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: <Widget>[
                       SizedBox(
-                        width: pWidth * 0.54,
+                        width: pWidth * 0.85,
                         child: TextFormField(
                           style: TextStyle(
                             fontSize: 20,
                             fontFamily: 'Calibre',
                             color: khometextcolor3,
                           ),
-                          controller: priceController,
+                          controller: supplydateController,
                           decoration: InputDecoration(
-                            labelText: "Dish Supply Time",
+                            labelText: "Dish Supply Date & Time",
                           ),
                           // The validator receives the text that the user has entered.
                           validator: (value) {
@@ -467,44 +557,298 @@ class _AdditemState extends State<Additem> {
                           },
                         ),
                       ),
-                      SizedBox(
-                        width: 25,
-                      ),
-                      SizedBox(
-                        width: pWidth * 0.3,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 17),
-                          child: DropdownButtonFormField(
-                            value: dropdownValue1,
-                            items: Items.map((String value) {
-                              return new DropdownMenuItem<String>(
-                                value: value,
-                                child: new Text(
-                                  value,
-                                  style: TextStyle(
-                                    fontFamily: 'Calibre',
-                                    fontSize: 20,
-                                    color: khometextcolor3,
-                                  ),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (String newValue) {
-                              setState(() {
-                                dropdownValue1 = newValue;
-                              });
-                            },
-                            validator: (value) {
-                              if (value.isEmpty) {
-                                return 'Please Select Item';
-                              }
-                              return null;
-                            },
-                          ),
-                        ),
+                      Icon(
+                        Icons.access_time,
+                        color: khometextcolor1,
                       ),
                     ],
                   ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: pWidth * 0.85,
+                        child: TextFormField(
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Calibre',
+                            color: khometextcolor3,
+                          ),
+                          controller: OrderdateController,
+                          decoration: InputDecoration(
+                            labelText: "Order Close Date & Time",
+                          ),
+                          // The validator receives the text that the user has entered.
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Enter Dish Supply Time';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Icon(
+                        Icons.access_time,
+                        color: khometextcolor1,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: pWidth * 0.85,
+                        child: TextFormField(
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontFamily: 'Calibre',
+                            color: khometextcolor3,
+                          ),
+                          controller: LocationController,
+                          decoration: InputDecoration(
+                            labelText: "Supply Location",
+                          ),
+                          // The validator receives the text that the user has entered.
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return 'Supply Location';
+                            }
+                            return null;
+                          },
+                        ),
+                      ),
+                      Icon(
+                        Icons.my_location,
+                        color: khometextcolor1,
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: pWidth * 0.9,
+                  child: TextFormField(
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontFamily: 'Calibre',
+                      color: khometextcolor3,
+                    ),
+                    controller: DesciptionController,
+                    decoration: InputDecoration(
+                      labelText: "Description",
+                    ),
+                    // The validator receives the text that the user has entered.
+                    validator: (value) {
+                      if (value.isEmpty) {
+                        return 'Supply Description';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: pHeight * 0.03,
+                ),
+                Row(
+                  children: <Widget>[
+                    but3
+                        ? Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  but3 = false;
+                                });
+                              },
+                              child: Icon(
+                                Icons.check_circle,
+                                color: khometextcolor1,
+                                size: 16,
+                              ),
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  but3 = true;
+                                });
+                              },
+                              child: Icon(
+                                Icons.check_circle,
+                                color: khometextcolor2,
+                                size: 16,
+                              ),
+                            ),
+                          ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5, left: 10),
+                      child: Text(
+                        'Veg',
+                        style: TextStyle(
+                            fontFamily: 'Calibre',
+                            fontSize: 16,
+                            color: khometextcolor3),
+                      ),
+                    ),
+                    SizedBox(
+                      width: pWidth * 0.37,
+                    ),
+                    but3
+                        ? Padding(
+                            padding: const EdgeInsets.only(left: 35),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  but3 = false;
+                                });
+                              },
+                              child: Icon(
+                                Icons.check_circle,
+                                color: khometextcolor2,
+                                size: 16,
+                              ),
+                            ),
+                          )
+                        : Padding(
+                            padding: const EdgeInsets.only(left: 35),
+                            child: InkWell(
+                              onTap: () {
+                                setState(() {
+                                  but3 = true;
+                                });
+                              },
+                              child: Icon(
+                                Icons.check_circle,
+                                color: khometextcolor1,
+                                size: 16,
+                              ),
+                            ),
+                          ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 5, left: 5),
+                      child: Text(
+                        'Non-Veg',
+                        style: TextStyle(
+                            fontFamily: 'Calibre',
+                            fontSize: 16,
+                            color: khometextcolor3),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: pHeight * 0.03,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text(
+                          'ADD Dish IMAGES',
+                          style: TextStyle(
+                              color: Colors.black,
+                              fontFamily: 'Calibre',
+                              fontSize: pHeight * 0.022),
+                        ),
+                        Icon(
+                          Icons.info,
+                          color: Colors.black.withOpacity(0.6),
+                          size: pHeight * 0.02,
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: pHeight * 0.005,
+                    ),
+                    Text(
+                      'Upload high resolution image only',
+                      style: TextStyle(
+                          color: kTextColor,
+                          fontFamily: 'Calibre',
+                          fontSize: pHeight * 0.02),
+                    ),
+                    SizedBox(
+                      height: pHeight * 0.08,
+                      child: InkWell(
+                        onTap: () {
+                          _settingModalBottomSheet(context);
+                        },
+                        child: Container(
+                          height: pHeight * 0.1,
+                          decoration: BoxDecoration(
+                            color: Color.fromRGBO(255, 225, 232, 1),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          child: Center(
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  Icons.cloud_upload,
+                                  color: kButtonColor,
+                                  size: pHeight * 0.05,
+                                ),
+                                SizedBox(
+                                  width: pWidth * 0.04,
+                                ),
+                                Text(
+                                  'Upload Here',
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontFamily: 'Calibre',
+                                      fontSize: pHeight * 0.022),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: pHeight * 0.04,
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Additem(),
+                      ),
+                    );
+                  },
+                  child: Container(
+                    width: 250,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: khometextcolor1,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Center(
+                        child: Text(
+                          'SUBMIT',
+                          style: TextStyle(
+                              fontFamily: 'Calibre',
+                              fontSize: 15,
+                              color: Colors.white,
+                              letterSpacing: 1.07),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: pHeight * 0.03,
                 ),
               ],
             ),
