@@ -1,8 +1,13 @@
+import 'dart:convert';
+import 'dart:io';
+
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../Classes/Constants.dart';
 import '../Classes/Constants.dart';
+import 'package:path/path.dart' as p;
 
 class Additem extends StatefulWidget {
   @override
@@ -843,14 +848,14 @@ class _AdditemState extends State<Additem> {
                   height: pHeight * 0.04,
                 ),
                 InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Additem(),
-                      ),
-                    );
-                  },
+                  onTap: () async {
+                    final String quantity=servingntroller.text;
+                    final String price=priceController.text;
+                    final String productName=nameController.text;
+                    await additem(quantity,price,productName);},
+
+
+
                   child: Container(
                     width: 250,
                     height: 50,
@@ -873,35 +878,7 @@ class _AdditemState extends State<Additem> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: pHeight * 0.03,
-                ),
-                SizedBox(height:15),
-                InkWell(
-                  onTap: () async{
-                   final String quantity=servingntroller.text;
-                   final String price=priceController.text;
-                   final String productName=nameController.text;
-                    await additem(quantity,price,productName);
-                    },
-                  child: Container(
-                    width: pWidth * 0.6,
-                    height: pHeight * 0.05,
-                    decoration: BoxDecoration(
-                      color: kButtonColor,
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'DONE',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Calibre',
-                            fontSize: pHeight * 0.022),
-                      ),
-                    ),
-                  ),
-                ),
+
               ],
             ),
           ),

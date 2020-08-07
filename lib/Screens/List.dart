@@ -17,11 +17,11 @@ class List extends StatefulWidget {
 
 class _ListState extends State<List> {
   String message='';
-  Future<String> getitem() async {
+  Future<OfferingModel> getitem() async {
 
     HttpClient httpClient = new HttpClient();
     final String apiUrl =
-        "https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/getUserOfferings/{5cb84df7-4bb6-4dfa-a4f6-9651ba6fd414}";
+        "https://yhoq67i030.execute-api.ap-south-1.amazonaws.com/dev/getUserOfferings/5cb84df7-4bb6-4dfa-a4f6-9651ba6fd414";
 
     HttpClientRequest request = await httpClient.getUrl(Uri.parse(apiUrl));
     request.headers.set('content-type', 'application/json');

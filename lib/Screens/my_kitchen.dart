@@ -3,12 +3,16 @@ import 'package:flutter/material.dart';
 import 'add_dish.dart';
 import '../Classes/Constants.dart';
 
+
+import '../Classes/Constants.dart';
+import 'List.dart';
+
 class Mykitchen extends StatefulWidget {
   @override
   _MykitchenState createState() => _MykitchenState();
 }
 
-class _MykitchenState extends State<Mykitchen> {
+class _MykitchenState extends State<Mykitchen> {//Done dana done doneq
   @override
   Widget build(BuildContext context) {
     final pHeight = MediaQuery.of(context).size.height;
@@ -62,7 +66,7 @@ class _MykitchenState extends State<Mykitchen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Additem(),
+                    builder: (context) => List(),
                   ),
                 );
               },
